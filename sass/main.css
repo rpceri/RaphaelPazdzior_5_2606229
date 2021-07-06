@@ -94,8 +94,15 @@ button {
 
 .bouton-tag:hover {
   background-color: #901C1C;
+  cursor: pointer;
   color: white;
   border: 0.5px solid transparent;
+}
+
+.bouton-tag:focus {
+  background-color: #901C1C;
+  color: white;
+  border: 1px solid red;
 }
 
 .lien-cache {
@@ -166,6 +173,33 @@ button {
         -ms-flex-order: 2;
             order: 2;
   }
+}
+
+.les-photographes {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (1fr)[3];
+      grid-template-columns: repeat(3, 1fr);
+  -ms-grid-rows: auto;
+      grid-template-rows: auto;
+}
+
+.photographe {
+  padding: 10px;
+  margin: 10px;
+}
+
+.photographe:hover {
+  background-color: #901C1C;
+  cursor: pointer;
+  color: white;
+  border: 0.5px solid transparent;
+}
+
+.photographe:focus {
+  background-color: #901C1C;
+  color: white;
+  border: 1px solid red;
 }
 
 .photographe .photographe__taglist {

@@ -43,8 +43,26 @@
     }
 }
 
+.les-photographes {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: auto;
+}
 
 .photographe {
+    padding:10px;
+    margin:10px;
+    &:hover {
+        background-color: $colour-primary-fond;
+        cursor: pointer;
+        color: $colour-primary-font-neutre;
+        border: 0.5px solid transparent;
+    }
+    &:focus {
+        background-color: $colour-primary-fond;
+        color: $colour-primary-font-neutre;
+        border: 1px solid $contour-focus;
+    }
     .photographe__taglist {
         display: flex;
         flex-wrap: wrap;

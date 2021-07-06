@@ -12,10 +12,9 @@
 
 .bouton-tag {
     color: $colour-primary-fond;
-    border: 0.5px solid #C4C4C4;
+    border: 0.5px solid $coutour-bt;
     box-sizing: border-box;
     border-radius: 11px;
-
 
     margin-top: 10px;
     padding: 0rem 1rem;
@@ -26,8 +25,14 @@
     }
     &:hover {
         background-color: $colour-primary-fond;
+        cursor: pointer;
         color: $colour-primary-font-neutre;
         border: 0.5px solid transparent;
+    }
+    &:focus {
+        background-color: $colour-primary-fond;
+        color: $colour-primary-font-neutre;
+        border: 1px solid $contour-focus;
     }
 }
 

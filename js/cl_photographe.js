@@ -11,7 +11,7 @@ class Cl_photographe {
         this._portrait = data.portrait
     }
     
-    // méthode retournant les informations particulières d'un photographe, utile dans la pahe index pour lister tous les photographes du json
+    // méthode retournant les informations particulières d'un photographe, utile dans la page index pour lister tous les photographes du json
     get infosPhotographe() {
         return `
             <a href="presentation-photographe.html?id=${this._id}" aria-label="Présentation de ${this._name}" >
