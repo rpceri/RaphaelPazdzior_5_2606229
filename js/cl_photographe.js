@@ -13,17 +13,16 @@ class Cl_photographe {
     
     // méthode retournant les informations particulières d'un photographe, utile dans la page index pour lister tous les photographes du json
     get infosPhotographe() {
-        return `
-            <a href="presentation-photographe.html?id=${this._id}" aria-label="Présentation de ${this._name}" >
-                <article class="photographe">
-                    <img src="./medias/photographers%20ID%20Photos/${this._portrait}" class="photographe__img" alt="Photo de profil de ${this._name}">
-                    <h2 class="photographe__name">${this._name}</h2>
+        return `<article class="photographe">
+                    <a href="presentation-photographe.html?id=${this._id}" aria-label="Présentation de ${this._name}" >
+                        <img src="./medias/Photographers%20ID%20Photos/${this._portrait}" class="photographe__img" titre="Photo de profil de ${this._name}">
+                        <h2 class="photographe__name">${this._name}</h2>
+                    </a>
                     <p class="photographe__coordonnees">${this._city}, ${this._country}</p>
                     <p class="photographe__tagline">${this._tagline}</p>
                     <p class="photographe__price">${this._price}€/jour</p>
                     <ul class="photographe__taglist">${this._tags.map(tag => `<li class="bouton-tag">#${tag}</li>`).join('')}</ul>
-                </article>
-            </a>`
+                </article>`
     }
 
  

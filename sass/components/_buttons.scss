@@ -2,37 +2,36 @@
     background: $colour-primary-fond;
     color: $colour-primary-font-neutre;
     border-radius: 5px;
-}
-
-.bouton:hover {
-    background: $colour-secondary-fond;
-    color: $colour-secondary-font-neutre;
-}
-
-
-.bouton-tag {
-    color: $colour-primary-fond;
-    border: 0.5px solid $coutour-bt;
-    box-sizing: border-box;
-    border-radius: 11px;
-
-    margin-top: 10px;
-    padding: 0rem 1rem;
-    text-decoration: none;
-
-    &:not(:last-child) {
-        margin-right: 1rem;
+     &:hover {
+        background: $colour-secondary-fond;
+         color: $colour-secondary-font-neutre;
     }
-    &:hover {
-        background-color: $colour-primary-fond;
-        cursor: pointer;
-        color: $colour-primary-font-neutre;
-        border: 0.5px solid transparent;
-    }
-    &:focus {
-        background-color: $colour-primary-fond;
-        color: $colour-primary-font-neutre;
-        border: 1px solid $contour-focus;
+
+
+    &-tag {
+        color: $colour-primary-fond;
+        border: 0.5px solid $coutour-bt;
+        box-sizing: border-box;
+        border-radius: 11px;
+
+        margin-top: 10px;
+        padding: 0rem 1rem;
+        text-decoration: none;
+
+        &:not(:last-child) {
+            margin-right: 1rem;
+        }
+        &:hover {
+            background-color: $colour-primary-fond;
+            cursor: pointer;
+            color: $colour-primary-font-neutre;
+            border: 0.5px solid transparent;
+        }
+        &:focus {
+            background-color: $colour-primary-fond;
+            color: $colour-primary-font-neutre;
+            border: 1px solid $contour-focus;
+        }
     }
 }
 

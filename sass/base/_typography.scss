@@ -13,11 +13,15 @@ strong {
 }
 
 h1, h2, h3 {
-    font-family: 'Shrikhand', sans-serif;
+    font-weight: normal;
 }
 
 h1 {
-    font-size: 1.8rem;
+    font-size: 2.8rem;
+    color : $colour-secondary-font-color; /* pour header__title*/
+}
+h2 {
+    color : $colour-primary-font-color;
 }
 
 textarea {

@@ -49,11 +49,17 @@ strong {
 }
 
 h1, h2, h3 {
-  font-family: 'Shrikhand', sans-serif;
+  font-weight: normal;
 }
 
 h1 {
-  font-size: 1.8rem;
+  font-size: 2.8rem;
+  color: #901C1C;
+  /* pour header__title*/
+}
+
+h2 {
+  color: #D3573C;
 }
 
 textarea {
@@ -138,6 +144,10 @@ button {
           justify-content: center;
 }
 
+.header__title {
+  /* Nos photographes, cf typo */
+}
+
 .header__filters__navigation {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -156,19 +166,19 @@ button {
         flex-wrap: wrap;
     margin: 0 4rem;
   }
-  .header .header__link {
+  .header__link {
     -webkit-box-ordinal-group: 2;
         -ms-flex-order: 1;
             order: 1;
   }
-  .header .header__nav {
+  .header__nav {
     -webkit-box-ordinal-group: 4;
         -ms-flex-order: 3;
             order: 3;
     -ms-flex-preferred-size: 100%;
         flex-basis: 100%;
   }
-  .header .header__title {
+  .header__title {
     -webkit-box-ordinal-group: 3;
         -ms-flex-order: 2;
             order: 2;
@@ -202,7 +212,12 @@ button {
   border: 1px solid red;
 }
 
-.photographe .photographe__taglist {
+.photographe__coordonnees {
+  color: #901C1C;
+}
+
+.photographe__taglist {
+  /* idem __filters__navigation pourait etre regroupé */
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -214,7 +229,7 @@ button {
           justify-content: center;
 }
 
-.photographe .photographe__img {
+.photographe__img {
   border-radius: 50%;
   height: 200px;
   -o-object-fit: cover;

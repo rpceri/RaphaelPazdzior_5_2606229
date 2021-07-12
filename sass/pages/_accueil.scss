@@ -13,31 +13,35 @@
     margin-bottom: 2.5rem;
     padding: 0 6rem;
   
-  &__nav {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-  &__filters__navigation {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem 0.3rem;
-    justify-content: center;
- }
+    &__nav {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    &__title {
+        /* Nos photographes, cf typo */     
+
+    }
+    &__filters__navigation {
+     display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem 0.3rem;
+        justify-content: center;
+    }
 }
 
 @media (max-width: 700px) {
     .header {
         flex-wrap: wrap;
         margin: 0 4rem;
-        .header__link {
+        &__link {
             order: 1;
         }
-        .header__nav {
+        &__nav {
             order: 3;
             flex-basis: 100%;
         }
-        .header__title {
+        &__title {
             order: 2;
         }
     }
@@ -63,13 +67,16 @@
         color: $colour-primary-font-neutre;
         border: 1px solid $contour-focus;
     }
-    .photographe__taglist {
+    &__coordonnees{
+        color : $colour-primary-fond;
+    }
+    &__taglist { /* idem __filters__navigation pourait etre regroupé */
         display: flex;
         flex-wrap: wrap;
         gap: 0.5rem 0.3rem;
         justify-content: center;
     }
-    .photographe__img {
+    &__img {
         border-radius: 50%;
         height: 200px;
         object-fit: cover; // pour qu'il n'y ait pas de déformation
