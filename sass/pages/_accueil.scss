@@ -18,10 +18,11 @@
         flex-wrap: wrap;
         justify-content: center;
     }
+    /*
     &__title {
-        /* Nos photographes, cf typo */     
+         Nos photographes, cf typo  
 
-    }
+    }*/
     &__filters__navigation {
      display: flex;
         flex-wrap: wrap;
@@ -56,9 +57,9 @@
 .photographe {
     padding:10px;
     margin:10px;
-    &:hover {
+    &:hover, &:hover &__name, &:hover &__coordonnees, &:hover  &__taglist li { /* possible aussi : .parent.hover .child ou en js :$('.parent').hover(function(){  $(this).children('.child').css("display","block"); cf https://qastack.fr/programming/5061940/changing-the-child-elements-css-when-the-parent-is-hovered */
         background-color: $colour-primary-fond;
-        cursor: pointer;
+       // cursor: pointer;
         color: $colour-primary-font-neutre;
         border: 0.5px solid transparent;
     }

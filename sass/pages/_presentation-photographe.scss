@@ -1,0 +1,169 @@
+.detail-photographe {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin-top: 1.5rem;
+
+	&__info_div {
+		align-items: flex-start;
+		display: flex;
+		justify-content: space-between;
+		margin-top: 2.5rem;
+		&__content {
+			&__title {
+				color: $colour-secondary-fond;
+				font-size: 1.9rem;
+				line-height: 1.8rem;
+				margin: 0;
+			}
+			&__localization {
+				color: $colour-secondary-font-color;
+				font-size: 1.2em;
+				font-weight: bold;
+				margin-top: 1.2rem;
+			}
+			&__tagline {
+				font-size: 1.1em;
+				color: $colour-secondary-font;
+                margin-top: 1.2rem;
+			}
+			&__taglist {
+                display: flex;  /* idem __filters__navigation pourait etre regroupé */
+                flex-wrap: wrap;
+                gap: 0.5rem 0.3rem;
+              /*  justify-content: center;*/ 
+			}
+		}
+		&__photo {
+			width: 200px;
+			height: 200px;
+			border-radius: 50%;
+			object-fit: cover;
+		}
+	}
+	&__gallery { 
+		display: grid;
+		grid-template-columns: 1fr;
+		&__media {
+			cursor: pointer;
+			border-radius: 5px;
+			height: 190px;
+			object-fit: cover;
+			width: 100%;
+			&:focus {
+				border: 1px solid red;
+			}
+
+		}
+	}
+	&__contact {
+		display: flex;
+		justify-content: center;
+		&__button {
+			background-color: $colour-secondary-font-color;
+			border-radius: 5px;
+			border: none;
+			bottom: 1rem;
+			color: white;
+			cursor: pointer;
+			font-size: 23.44px;
+			height: 80px;
+			left: 50%;
+			margin-left: -150px;
+			position: fixed;
+			width: 300px;
+		}
+	}
+	&__trie { ////////////vy
+		display: none;
+	}
+	&__footer {
+		display: none;
+	}
+}
+
+@media (min-width: 300px) {
+	.detail-photographe {
+		&__gallery {
+			grid-template-columns: repeat(2, 1fr);
+			gap: 2rem;
+			&__media {
+				height: 300px;
+				width: 100%;
+			}
+		}
+	}
+	&__footer {
+		display: none;
+	}
+}
+
+// Large devices (desktops, 992px and up)
+@media (min-width: 992px) {
+	.detail-photographe {
+		display: inline;
+		&__header {
+			background-color: #fafafa;
+			border-radius: 5px;
+			display: grid;
+			grid-template-columns: 1fr 1fr 1fr;
+			margin-top: 3rem;
+			padding: 3rem 2rem;
+			&__content {
+				&__title {
+					font-size: 64px;
+					line-height: 4rem;
+					margin: 0rem;
+				}
+				&__localization {
+					font-size: 24px;
+					font-weight: bold;
+					margin: 1rem 0.2rem;
+				}
+				&__tagline {
+					color: #525252;
+					font-size: 18px;
+					margin: 0 0.2rem;
+				}
+			}
+			&__photo {
+				height: 200px;
+				justify-self: end;
+				margin-right: 2rem;
+				max-width: 200px;
+				min-width: 200px;
+				object-fit: cover;
+			}
+		}
+		&__gallery {
+			display: grid;
+			gap: 2rem;
+			grid-template-columns: repeat(3, 1fr);
+			margin-top: 3rem;
+			&__card {
+				width: 100%;
+				height: 350px;
+			}
+			&__media {
+				height: 300px;
+				object-fit: cover;
+				width: 100%;
+			}
+		}
+		&__contact {
+			&__button {
+				height: 50px;
+				margin: 0;
+				position: initial;
+				&:focus {
+					border: 2px solid $colour-secondary-fond;
+				}
+			}
+		}
+		&__trie { ////// vue
+			display: inline;
+			margin-bottom: 3rem;
+		}
+
+	}
+}

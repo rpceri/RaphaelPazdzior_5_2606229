@@ -9,16 +9,16 @@ then retourne un tableau d'objet issu du json
     const getDataOfJson = async () =>
         await fetch("./json/FishEyeData.json", { mode: "no-cors" })
             .then((ressource) => ressource.json())
-            .catch((erreur) => console.log("Erreur lord du fetch du json", erreur));
+            .catch((erreur) => console.log("Erreur lors du fetch du json", erreur));
      
     // renseigne la partie les-photographes avec les infos contenues dans photographersRecup
     const displayDataOfList = async (photographersRecup) => {
         const element = document.querySelector(".les-photographes");
         element.innerHTML = "";
         photographersRecup.forEach((photographe_particulier) => {
-            let photographe_fiche = new Cl_photographe(photographe_particulier); // utilistion de la classe Cl_photographe
+            let photographeFiche = new Cl_photographe(photographe_particulier); // utilistion de la classe Cl_photographe
             //console.log(photographe_particulier);
-            element.innerHTML += photographe_fiche.infosPhotographe; // element
+            element.innerHTML += photographeFiche.infosPhotographe; // element
         });
     };
 
@@ -30,7 +30,7 @@ then retourne un tableau d'objet issu du json
 
     // fonction permettant de gérer les filtres et d'afficher chaque photogrpahe 
     const mainFuntion = async () => {
-        const { photographers } = await getDataOfJson(); // retourne automatiquement un tab d'objet de ce qu'il y a dans le json au niveau de photographers, si on avait voulu media, il aaurait suffit de mettre media
+        const { photographers } = await getDataOfJson(); // retourne automatiquement un tab d'objet de ce qu'il y a dans le json au niveau de photographers, si on avait voulu media, il aurait suffit de mettre media
         //console.log(photographers); 
         displayDataOfList(photographers);
 

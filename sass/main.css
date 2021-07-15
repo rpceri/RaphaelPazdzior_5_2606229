@@ -72,6 +72,11 @@ button {
   font-size: 2.75rem;
 }
 
+a {
+  text-decoration: none;
+  color: #000000;
+}
+
 .bouton {
   background: #901C1C;
   color: white;
@@ -131,6 +136,11 @@ button {
           align-items: center;
   margin-bottom: 2.5rem;
   padding: 0 6rem;
+  /*
+    &__title {
+         Nos photographes, cf typo  
+
+    }*/
 }
 
 .header__nav {
@@ -142,10 +152,6 @@ button {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-}
-
-.header__title {
-  /* Nos photographes, cf typo */
 }
 
 .header__filters__navigation {
@@ -199,9 +205,9 @@ button {
   margin: 10px;
 }
 
-.photographe:hover {
+.photographe:hover, .photographe:hover .photographe__name, .photographe:hover .photographe__coordonnees, .photographe:hover .photographe__taglist li {
+  /* possible aussi : .parent.hover .child ou en js :$('.parent').hover(function(){  $(this).children('.child').css("display","block"); cf https://qastack.fr/programming/5061940/changing-the-child-elements-css-when-the-parent-is-hovered */
   background-color: #901C1C;
-  cursor: pointer;
   color: white;
   border: 0.5px solid transparent;
 }
@@ -238,5 +244,209 @@ button {
   width: 200px;
   -webkit-box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.25);
           box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+.detail-photographe {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-top: 1.5rem;
+}
+
+.detail-photographe__info_div {
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  margin-top: 2.5rem;
+}
+
+.detail-photographe__info_div__content__title {
+  color: #D3573C;
+  font-size: 1.9rem;
+  line-height: 1.8rem;
+  margin: 0;
+}
+
+.detail-photographe__info_div__content__localization {
+  color: #901C1C;
+  font-size: 1.2em;
+  font-weight: bold;
+  margin-top: 1.2rem;
+}
+
+.detail-photographe__info_div__content__tagline {
+  font-size: 1.1em;
+  color: #525252;
+  margin-top: 1.2rem;
+}
+
+.detail-photographe__info_div__content__taglist {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  /* idem __filters__navigation pourait etre regroupé */
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  gap: 0.5rem 0.3rem;
+  /*  justify-content: center;*/
+}
+
+.detail-photographe__info_div__photo {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.detail-photographe__gallery {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr;
+      grid-template-columns: 1fr;
+}
+
+.detail-photographe__gallery__media {
+  cursor: pointer;
+  border-radius: 5px;
+  height: 190px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  width: 100%;
+}
+
+.detail-photographe__gallery__media:focus {
+  border: 1px solid red;
+}
+
+.detail-photographe__contact {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.detail-photographe__contact__button {
+  background-color: #901C1C;
+  border-radius: 5px;
+  border: none;
+  bottom: 1rem;
+  color: white;
+  cursor: pointer;
+  font-size: 23.44px;
+  height: 80px;
+  left: 50%;
+  margin-left: -150px;
+  position: fixed;
+  width: 300px;
+}
+
+.detail-photographe__trie {
+  display: none;
+}
+
+.detail-photographe__footer {
+  display: none;
+}
+
+@media (min-width: 300px) {
+  .detail-photographe__gallery {
+    -ms-grid-columns: (1fr)[2];
+        grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+  }
+  .detail-photographe__gallery__media {
+    height: 300px;
+    width: 100%;
+  }
+  __footer {
+    display: none;
+  }
+}
+
+@media (min-width: 992px) {
+  .detail-photographe {
+    display: inline;
+  }
+  .detail-photographe__header {
+    background-color: #fafafa;
+    border-radius: 5px;
+    display: -ms-grid;
+    display: grid;
+    -ms-grid-columns: 1fr 1fr 1fr;
+        grid-template-columns: 1fr 1fr 1fr;
+    margin-top: 3rem;
+    padding: 3rem 2rem;
+  }
+  .detail-photographe__header__content__title {
+    font-size: 64px;
+    line-height: 4rem;
+    margin: 0rem;
+  }
+  .detail-photographe__header__content__localization {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 1rem 0.2rem;
+  }
+  .detail-photographe__header__content__tagline {
+    color: #525252;
+    font-size: 18px;
+    margin: 0 0.2rem;
+  }
+  .detail-photographe__header__photo {
+    height: 200px;
+    -ms-grid-column-align: end;
+        justify-self: end;
+    margin-right: 2rem;
+    max-width: 200px;
+    min-width: 200px;
+    -o-object-fit: cover;
+       object-fit: cover;
+  }
+  .detail-photographe__gallery {
+    display: -ms-grid;
+    display: grid;
+    gap: 2rem;
+    -ms-grid-columns: (1fr)[3];
+        grid-template-columns: repeat(3, 1fr);
+    margin-top: 3rem;
+  }
+  .detail-photographe__gallery__card {
+    width: 100%;
+    height: 350px;
+  }
+  .detail-photographe__gallery__media {
+    height: 300px;
+    -o-object-fit: cover;
+       object-fit: cover;
+    width: 100%;
+  }
+  .detail-photographe__contact__button {
+    height: 50px;
+    margin: 0;
+    position: initial;
+  }
+  .detail-photographe__contact__button:focus {
+    border: 2px solid #D3573C;
+  }
+  .detail-photographe__trie {
+    display: inline;
+    margin-bottom: 3rem;
+  }
 }
 /*# sourceMappingURL=main.css.map */
