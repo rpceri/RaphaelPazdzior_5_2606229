@@ -13,9 +13,9 @@ class Gallery {
     retourneMediaHtml() {
         let $media = '';
 
-        if (this._image != undefined) $media = `<img class="detail-photographe__gallery__media focus__element-secondary" loading="lazy" tabindex="5" src="/medias/${this._photographerId}/${this._image}" alt="${this._description}" />`;
+        if (this._image != undefined) $media = `<img class="detail-photographe__gallery__media focus__element-secondary" loading="lazy" tabindex="5" src="./medias/${this._photographerId}/${this._image}" alt="${this._description}" />`;
         else if (this._video != undefined)  $media = `<video controls class="detail-photographe__gallery__media focus__element-secondary" tabindex="5">
-                                                          <source src="/medias/${this._photographerId}/${this._video}"/>
+                                                          <source src="./medias/${this._photographerId}/${this._video}"/>
                                                       </video>`;
         else throw `Média non pris en charge`;
 
