@@ -16,7 +16,7 @@ class Cl_photographe {
            // il est spécifié dans figma que le lien ne doit etre que sur le link h2 + image
            return `<article class="photographe">
                        <a href="presentation-photographe.html?id=${this._id}" aria-label="Présentation de ${this._name}" >
-                           <img src="./medias/Photographers%20ID%20Photos/${this._portrait}" class="photographe__img" titre="Photo de profil de ${this._name}">
+                           <img src="./medias/Photographers%20ID%20Photos/${this._portrait}" class="photographe__img" title="Photo de profil de ${this._name}">
                            <h2 class="photographe__name">${this._name}</h2>
                        </a>
                        <p class="photographe__coordonnees">${this._city}, ${this._country}</p>

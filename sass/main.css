@@ -12,17 +12,6 @@
   /* box-sizing: inherit;*/
 }
 
-html {
-  font-size: 70%;
-}
-
-@media screen and (min-width: 1023px) {
-  html {
-    /*sur grand écran = desktop */
-    font-size: 60%;
-  }
-}
-
 body {
   /* box-sizing: border-box;
     background: $colour-secondary;*/
@@ -40,7 +29,7 @@ ul {
 }
 
 body {
-  font-size: 1.5rem;
+  font-size: 0.85rem;
   line-height: 1.5;
 }
 
@@ -53,7 +42,7 @@ h1, h2, h3 {
 }
 
 h1 {
-  font-size: 2.8rem;
+  font-size: 1.6rem;
   color: #901C1C;
   /* pour header__title*/
 }
@@ -69,7 +58,7 @@ textarea {
 
 button {
   font-weight: 200;
-  font-size: 2.75rem;
+  font-size: 1.1rem;
 }
 
 a {
@@ -126,8 +115,7 @@ a {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  margin-bottom: 2.5rem;
-  padding: 2rem 3rem 0 3rem;
+  padding: 2rem 1em 2rem 1rem;
 }
 
 .header__nav {
@@ -190,7 +178,7 @@ a {
   -webkit-transform: translate(-50%, 0);
           transform: translate(-50%, 0);
   padding: 4px 6px;
-  font-size: 1.4rem;
+  font-size: 1.1rem;
   border-radius: 5px;
 }
 
@@ -284,8 +272,7 @@ a {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  margin-top: 1.5rem;
-  padding: 5px 20px;
+  padding: 5px 20px 0;
   /*	&__infos-autre {
 		display: none;
 	}*/
@@ -301,7 +288,6 @@ a {
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  margin-top: 2.5rem;
   padding: 40px;
   background-color: #FAFAFA;
 }
