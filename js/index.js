@@ -24,31 +24,39 @@ then retourne un tableau d'objet issu du json
 
     // trie des photographes : retourne eulement les photographes correspondant au tag, trié grace à .filter
      const trieParTag = (tagRetenu, photographes) => {
-        if (tagRetenu === "all") return photographes
-        else return photographes.filter((photographeFiltre) => photographeFiltre.tags.includes(tagRetenu)) // tags.includes permet de tie en fct de  : "tags": ["portrait", "events", "travel", "animals"],
+        if (tagRetenu === "tous") return photographes
+        else return photographes.filter((photographeFiltre) => photographeFiltre.tags.includes(tagRetenu)) // tags.includes permet le trie en fct de  : "tags": ["portrait", "events", "travel", "animals"],
     }
 
     // fonction permettant de gérer les filtres et d'afficher chaque photogrpahe 
     const mainFuntion = async () => {
-        const { photographers } = await getDataOfJson() // retourne automatiquement un tab d'objet de ce qu'il y a dans le json au niveau de photographers, si on avait voulu media, il aurait suffit de mettre media
+        let { photographers } = await getDataOfJson() // retourne automatiquement un tab d'objet de ce qu'il y a dans le json au niveau de photographers, si on avait voulu media, il aurait suffit de mettre media
         //console.log(photographers) 
-        displayDataOfList(photographers)
+        displayDataOfList(photographers) // renseigne la partie les-photographes avec les infos contenues dans photographersRecup
 
-        const $listeFiltres = document.querySelector(".header__filters__navigation")
-        const $tags = $listeFiltres.querySelectorAll("li")
+        let tags = document.querySelector(".header__filters__navigation").querySelectorAll("li")
 
-        $tags.forEach((tag) => { // parcours tout les li pour leur ajouter l'evenement click
-            tag.addEventListener("click", function () {
-                const photographeTri = trieParTag(tag.textContent.replace(/(\s|\#)+/g, "").toLowerCase(), photographers)// textContent retourne le contenu d'un noeud
+        tags.forEach((tag) => { // parcours tout les li de header__filters__navigation pour leur ajouter l'evenement click
+            let photographeTri = trieParTag(tag.textContent.replace(/(\s|\#)+/g, "").toLowerCase(), photographers)// textContent retourne le contenu d'un noeud
+
+            tag.addEventListener("click", function () {                
                 displayDataOfList(photographeTri)
             })
             tag.addEventListener("keypress", function (e) {
                 if (e.key === "Enter") {
-                    // a faire : idem ci dessus
+                    displayDataOfList(photographeTri)
                 }
             })
         })
     }
 
     mainFuntion()
+    // code permettant d'afficher le lien "aller au contenu" quand la page est scrollées, inspi : http://doc.eklablog.com/div-qui-apparait-lorsqu-on-scroll-down-une-certaine-hauteur-topic204818
+    document.addEventListener('scroll', function(e) {
+        console.log(document.documentElement.scrollTop );
+        let style = 'none';
+        if (document.documentElement.scrollTop != 0) style = 'block'; // ocument.documentElement.scrollTop contient la valeur du scroll => 0 si page pas scrollée
+
+        document.querySelector(".lien-cache").style.display = style
+    })
     

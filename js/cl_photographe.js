@@ -42,8 +42,12 @@ class Cl_photographe {
                     <p class="detail-photographe__info_div__content__tagline">${this._tagline}</p>
                     <ul class="detail-photographe__info_div__content__taglist">${this._tags.map(tag => `<li href="index.html" class="bouton-tag">#${tag}</li>`).join(" ")}</ul>
                 </div>
-                <button class="detail-photographe__contact__button focus__element-secondary" tabindex="3" onclick="AffichePopup()" aria-label="Contacter Me">Contactez-moi</button>
-                <img src="./medias/Photographers%20ID%20Photos/${this._portrait}" class="detail-photographe__info_div__photo" alt="" aria-label="${this._name}">
+                <div class="detail-photographe__info_div__contact">
+                    <button class="detail-photographe__info_div__contact__button focus__element-secondary" tabindex="3" onclick="AffichePopup()" aria-label="Contacter Me">Contactez-moi</button>
+                </div>
+                <div class="detail-photographe__info_div__photo">
+                <img src="./medias/Photographers%20ID%20Photos/${this._portrait}" class="detail-photographe__info_div__photo__img" alt="" aria-label="${this._name}">
+                </div>
             </div>`
         }
 

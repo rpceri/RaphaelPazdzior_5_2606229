@@ -64,7 +64,7 @@ function  retourneMediaHtml(mediaParam) {
     let likes = mediaParam.likes
 
     let codeHtml = ''
-    if (image != undefined) codeHtml = `<img class="detail-photographe__gallery__media focus__element-secondary" loading="lazy" tabindex="5" src="./medias/${photographerId}/${image}" alt="${description}" />`
+    if (image != undefined) codeHtml = `<img class="detail-photographe__gallery__media focus__element-secondary" tabindex="5" src="./medias/${photographerId}/${image}" alt="${description}" />`
     else if (video != undefined)  codeHtml = `<video controls class="detail-photographe__gallery__media focus__element-secondary" tabindex="5">
                                                         <source src="./medias/${photographerId}/${video}"/>
                                             </video>`

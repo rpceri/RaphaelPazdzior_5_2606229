@@ -84,7 +84,7 @@ a {
 }
 
 .bouton:hover {
-  background: #D3573C;
+  background: #DB8876;
   color: black;
 }
 
@@ -116,14 +116,6 @@ a {
   border: 1px solid red;
 }
 
-.lien-cache {
-  opacity: 0;
-}
-
-.lien-cache:hover {
-  opacity: 1;
-}
-
 .header {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -135,12 +127,7 @@ a {
       -ms-flex-align: center;
           align-items: center;
   margin-bottom: 2.5rem;
-  padding: 0 6rem;
-  /*
-    &__title {
-         Nos photographes, cf typo  
-
-    }*/
+  padding: 2rem 3rem 0 3rem;
 }
 
 .header__nav {
@@ -166,7 +153,7 @@ a {
           justify-content: center;
 }
 
-@media (max-width: 700px) {
+@media (max-width: 1280px) {
   .header {
     -ms-flex-wrap: wrap;
         flex-wrap: wrap;
@@ -188,7 +175,28 @@ a {
     -webkit-box-ordinal-group: 3;
         -ms-flex-order: 2;
             order: 2;
+    font-size: 1.7rem;
   }
+}
+
+.lien-cache {
+  display: none;
+  position: fixed;
+  text-align: center;
+  width: auto;
+  left: 50%;
+  background-color: #901C1C;
+  color: white;
+  -webkit-transform: translate(-50%, 0);
+          transform: translate(-50%, 0);
+  padding: 4px 6px;
+  font-size: 1.4rem;
+  border-radius: 5px;
+}
+
+.lien-cache:hover {
+  background-color: #DB8876;
+  color: black;
 }
 
 .les-photographes {
@@ -200,29 +208,28 @@ a {
       grid-template-rows: auto;
 }
 
-.photographe {
+.les-photographes .photographe {
   padding: 10px;
   margin: 10px;
+  text-align: center;
 }
 
-.photographe:hover, .photographe:hover .photographe__name, .photographe:hover .photographe__coordonnees, .photographe:hover .photographe__taglist li {
-  /* possible aussi : .parent.hover .child ou en js :$('.parent').hover(function(){  $(this).children('.child').css("display","block"); cf https://qastack.fr/programming/5061940/changing-the-child-elements-css-when-the-parent-is-hovered */
-  background-color: #901C1C;
-  color: white;
+.les-photographes .photographe:hover {
+  background-color: #FAFAFA;
   border: 0.5px solid transparent;
 }
 
-.photographe:focus {
-  background-color: #901C1C;
+.les-photographes .photographe:focus {
+  background-color: #FAFAFA;
   color: white;
   border: 1px solid red;
 }
 
-.photographe__coordonnees {
+.les-photographes .photographe__coordonnees {
   color: #901C1C;
 }
 
-.photographe__taglist {
+.les-photographes .photographe__taglist {
   /* idem __filters__navigation pourait etre regroupé */
   display: -webkit-box;
   display: -ms-flexbox;
@@ -235,7 +242,14 @@ a {
           justify-content: center;
 }
 
-.photographe__img {
+.les-photographes .photographe__taglist .bouton-tag:hover {
+  cursor: default;
+  background-color: #FAFAFA;
+  color: #901C1C;
+  border: 0.5px solid #C4C4C4;
+}
+
+.les-photographes .photographe__img {
   border-radius: 50%;
   height: 200px;
   -o-object-fit: cover;
@@ -244,6 +258,19 @@ a {
   width: 200px;
   -webkit-box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.25);
           box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+@media (max-width: 780px) {
+  .les-photographes {
+    -ms-grid-columns: (1fr)[2];
+        grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 550px) {
+  .les-photographes {
+    display: block;
+  }
 }
 
 .detail-photographe {
@@ -258,6 +285,10 @@ a {
       -ms-flex-align: center;
           align-items: center;
   margin-top: 1.5rem;
+  padding: 5px 20px;
+  /*	&__infos-autre {
+		display: none;
+	}*/
 }
 
 .detail-photographe__info_div {
@@ -271,20 +302,20 @@ a {
       -ms-flex-pack: justify;
           justify-content: space-between;
   margin-top: 2.5rem;
+  padding: 40px;
+  background-color: #FAFAFA;
 }
 
 .detail-photographe__info_div__content__title {
   color: #D3573C;
-  font-size: 1.9rem;
-  line-height: 1.8rem;
+  font-size: 2.2em;
   margin: 0;
 }
 
 .detail-photographe__info_div__content__localization {
   color: #901C1C;
-  font-size: 1.2em;
-  font-weight: bold;
-  margin-top: 1.2rem;
+  font-size: 1.4em;
+  margin-top: 0.2rem;
 }
 
 .detail-photographe__info_div__content__tagline {
@@ -304,17 +335,52 @@ a {
   /*  justify-content: center;*/
 }
 
-.detail-photographe__info_div__photo {
-  width: 200px;
-  height: 200px;
+.detail-photographe__info_div__content__photo {
+  -ms-grid-column-align: end;
+      justify-self: end;
+  margin-right: 2rem;
+}
+
+.detail-photographe__info_div__contact {
+  text-align: left;
+  display: none;
+}
+
+.detail-photographe__info_div__contact__button {
+  background-color: #901C1C;
+  border-radius: 5px;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-size: 1.3em;
+  width: auto;
+  padding: 6px 5px;
+  position: relative;
+  left: -200px;
+}
+
+.detail-photographe__info_div__contact__button:focus {
+  border: 2px solid #DB8876;
+  border: 1px solid red;
+}
+
+.detail-photographe__info_div__contact__button:hover {
+  background-color: #DB8876;
+  color: black;
+}
+
+.detail-photographe__info_div__photo__img {
+  width: 150px;
+  height: 150px;
   border-radius: 50%;
   -o-object-fit: cover;
      object-fit: cover;
+  -webkit-box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.25);
+          box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.25);
 }
 
 .detail-photographe__gallery {
-  display: -ms-grid;
-  display: grid;
+  display: block;
   -ms-grid-columns: 1fr;
       grid-template-columns: 1fr;
 }
@@ -332,121 +398,38 @@ a {
   border: 1px solid red;
 }
 
-.detail-photographe__contact {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-}
-
-.detail-photographe__contact__button {
-  background-color: #901C1C;
-  border-radius: 5px;
-  border: none;
-  bottom: 1rem;
-  color: white;
-  cursor: pointer;
-  font-size: 23.44px;
-  height: 80px;
-  left: 50%;
-  margin-left: -150px;
-  position: fixed;
-  width: 300px;
-}
-
 .detail-photographe__trie {
-  display: none;
+  display: inline;
+  margin-bottom: 3rem;
 }
 
-.detail-photographe__footer {
-  display: none;
-}
-
-@media (min-width: 300px) {
+@media (min-width: 400px) {
   .detail-photographe__gallery {
+    display: -ms-grid;
+    display: grid;
+    gap: 2rem;
     -ms-grid-columns: (1fr)[2];
         grid-template-columns: repeat(2, 1fr);
-    gap: 2rem;
+    margin-top: 2rem;
   }
   .detail-photographe__gallery__media {
-    height: 300px;
-    width: 100%;
-  }
-  __footer {
-    display: none;
+    height: 200px;
   }
 }
 
 @media (min-width: 992px) {
-  .detail-photographe {
-    display: inline;
+  .detail-photographe__info_div__contact {
+    display: block;
   }
-  .detail-photographe__header {
-    background-color: #fafafa;
-    border-radius: 5px;
-    display: -ms-grid;
-    display: grid;
-    -ms-grid-columns: 1fr 1fr 1fr;
-        grid-template-columns: 1fr 1fr 1fr;
-    margin-top: 3rem;
-    padding: 3rem 2rem;
-  }
-  .detail-photographe__header__content__title {
-    font-size: 64px;
-    line-height: 4rem;
-    margin: 0rem;
-  }
-  .detail-photographe__header__content__localization {
-    font-size: 24px;
-    font-weight: bold;
-    margin: 1rem 0.2rem;
-  }
-  .detail-photographe__header__content__tagline {
-    color: #525252;
-    font-size: 18px;
-    margin: 0 0.2rem;
-  }
-  .detail-photographe__header__photo {
-    height: 200px;
-    -ms-grid-column-align: end;
-        justify-self: end;
-    margin-right: 2rem;
-    max-width: 200px;
-    min-width: 200px;
-    -o-object-fit: cover;
-       object-fit: cover;
+  .detail-photographe__info {
+    width: 100%;
   }
   .detail-photographe__gallery {
-    display: -ms-grid;
-    display: grid;
-    gap: 2rem;
     -ms-grid-columns: (1fr)[3];
         grid-template-columns: repeat(3, 1fr);
-    margin-top: 3rem;
-  }
-  .detail-photographe__gallery__card {
-    width: 100%;
-    height: 350px;
   }
   .detail-photographe__gallery__media {
-    height: 300px;
-    -o-object-fit: cover;
-       object-fit: cover;
-    width: 100%;
-  }
-  .detail-photographe__contact__button {
-    height: 50px;
-    margin: 0;
-    position: initial;
-  }
-  .detail-photographe__contact__button:focus {
-    border: 2px solid #D3573C;
-  }
-  .detail-photographe__trie {
-    display: inline;
-    margin-bottom: 3rem;
+    height: 350px;
   }
 }
 /*# sourceMappingURL=main.css.map */
