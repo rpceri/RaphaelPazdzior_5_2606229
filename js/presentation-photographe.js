@@ -86,7 +86,18 @@ function  retourneMediaHtml(mediaParam) {
 	let id = mediaParam.id
 
     let codeHtml = ''
-    if (image != undefined) codeHtml = `<img class="detail-photographe__gallery__media focus__element-secondary" tabindex="5" src="./medias/${photographerId}/${image}" alt="${description}" />`
+	
+
+    if (image != undefined) {
+		// portion de code pour tester la présence d'une image (vu pb nommage image pour Tracy Galindo id= 82), sinpi : https://www.developpez.net/forums/d475332/javascript/general-javascript/verifier-image-existe/ :
+		emplacementImage = `./medias/${photographerId}/${image}`
+		var tester=new Image()
+		tester.src=emplacementImage;
+		//tester.onload=function() {alert('Image chargée')}
+		tester.onerror=function() {console.log('ATTENTION : Le media n\'existe pas : ' + tester.src)}
+	
+		codeHtml = `<img class="detail-photographe__gallery__media focus__element-secondary" tabindex="5" src="${emplacementImage}" alt="${description}" />`
+	}
     else if (video !== undefined)  codeHtml = `<video controls class="detail-photographe__gallery__media focus__element-secondary" tabindex="5">
                                                         <source src="./medias/${photographerId}/${video}"/>
                                             </video>`
@@ -160,10 +171,28 @@ function majLikeTotal() {
     else throw 'attention .detail-photographe__infos-autres__aside__total-likes introuvable'
 }
 
-// fonction permettant d'affiche les informations du photogrpahe
+
+    // fonction permettant d'ajouter les evenements click et keypress aux tags de la page de détail seulement
+    assoEvenementsAuxTagsPageDetail = () => {
+        let tags = document.querySelectorAll(".detail-photographe__info_div__content__taglist > li")
+ 
+        tags.forEach((tag) => { // parcours tout les li de tag-list-interractive (dont header__filters__navigation) pour leur ajouter l'evenement click
+                tag.addEventListener("click", function () {                
+                    window.location = 'index.html?tag=' + tag.textContent.replace(/(\s|\#)+/g, "").toLowerCase()
+                })
+                tag.addEventListener("keypress", function (e) {
+                    if (e.key === "Enter") window.location = 'index.html?tag=' + tag.textContent.replace(/(\s|\#)+/g, "").toLowerCase()
+                })
+
+        })
+
+    }
+
+// fonction principale permettant d'afficher les informations du photographe de gérer les likes et les tags
 const mainFuntion = async () => {
 	await afficheInfosPhotpgraphe() // await permet d'attendre le résdultat (fct asynchrone)
     gestionLikeDunMedia() // permet de gérer le clic sur le bouton like (incrémente ou décrémente le compte en foncitons des actions passées)
+	assoEvenementsAuxTagsPageDetail() // fonction permettant d'ajouter les evenements click et keypress aux tags
 }
 
-mainFuntion()
+mainFuntion() // fonction principale permettant d'afficher les informations du photographe, de gérer les likes et les tags

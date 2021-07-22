@@ -228,13 +228,12 @@ a {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-}
-
-.les-photographes .photographe__taglist .bouton-tag:hover {
-  cursor: default;
-  background-color: #FAFAFA;
-  color: #901C1C;
-  border: 0.5px solid #C4C4C4;
+  /*& .bouton-tag:hover { // contrairement aux tag du header, on ne veut pas qu'ils apparaissent comme clicable ici.. finalement si
+                cursor:default;
+                background-color: $background-tres-leger;
+                color: $colour-primary-fond;
+                border: 0.5px solid $coutour-bt;
+            }*/
 }
 
 .les-photographes .photographe__img {

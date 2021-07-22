@@ -2,7 +2,7 @@
 
 // On crée le constructeur pour cet objet
 function ExceptionUtilisateur(message) {
-    this.message = message
+    //this.message = message inutile maintenant
 
     // on créé un div qu'on va mettre dans le hader pour afficher le problème à l'utilisateur
     const newElt = document.createElement("div")

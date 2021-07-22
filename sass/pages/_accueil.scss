@@ -29,7 +29,7 @@
 
         &:hover { // &:hover &__name, &:hover &__coordonnees, &:hover  &__taglist li possible aussi : .parent.hover .child ou en js :$('.parent').hover(function(){  $(this).children('.child').css("display","block"); cf https://qastack.fr/programming/5061940/changing-the-child-elements-css-when-the-parent-is-hovered 
             background-color: $background-tres-leger; //$colour-secondary-fond;
-        // cursor: pointer;
+            // cursor: pointer;
             //color: $colour-primary-font-neutre;
             border: 0.5px solid transparent;
         }
@@ -46,12 +46,12 @@
             flex-wrap: wrap;
             gap: 0.5rem 0.3rem;
             justify-content: center;
-            & .bouton-tag:hover { // contrairement aux tag du header, on ne veut pas qu'ils apparaissent comme clicable ici
+            /*& .bouton-tag:hover { // contrairement aux tag du header, on ne veut pas qu'ils apparaissent comme clicable ici.. finalement si
                 cursor:default;
                 background-color: $background-tres-leger;
                 color: $colour-primary-fond;
                 border: 0.5px solid $coutour-bt;
-            }
+            }*/
         }
         &__img {
             border-radius: 50%;
