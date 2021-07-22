@@ -37,7 +37,7 @@ class Cl_photographe {
         get infoDetailPhotographe() {
            return  `<div class="detail-photographe__info_div">
                 <div class="detail-photographe__info_div__content">
-                    <h1 class="detail-photographe__info_div__content__title">${this._name}</h1>
+                    <h1 class="detail-photographe__info_div__content__title" id="identificationPhotographe">${this._name}</h1>
                     <p class="detail-photographe__info_div__content__localization">${this._city}, ${this._country}</p>
                     <p class="detail-photographe__info_div__content__tagline">${this._tagline}</p>
                     <ul class="detail-photographe__info_div__content__taglist">${this._tags.map(tag => `<li href="index.html" class="bouton-tag">#${tag}</li>`).join(" ")}</ul>
