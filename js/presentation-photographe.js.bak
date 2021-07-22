@@ -1,11 +1,25 @@
-
+// trie des medias (photo ou video ), retourne le  tableau des média trié 
+const filterByOption = (mediaGallery, option) => { // mediaGallery : array option : chaine
+	switch (option) {
+		case "date":
+			return mediaGallery.sort((a, b) => {
+				return new Date(b.date) - new Date(a.date)
+			})
+		case "titre":
+			return mediaGallery.sort((a, b) => a.title.localeCompare(b.title))
+		default: // popularite par défaut
+			return mediaGallery.sort((a, b) => {
+				return b.likes - a.likes
+			})
+	}
+}
 
 const $conteneurGalleryPhtographe = document.querySelector(".detail-photographe__gallery")
 var DonneesPhotographeObj = '' // on déclare l'objet ici ainsi il servira a plusieurs endroits, il sera instancié par afficheInfosPhotpgraphe
 
 const getDataOfJson = async () =>
 await fetch("./json/FishEyeData.json", { mode: "no-cors" })
-    .then((ressourcelol) => ressourcelol.json())
+    .then((ressource) => ressource.json())
     .catch((erreur) => console.log("Erreur lors du fetch du json", erreur))
 
 
@@ -15,49 +29,15 @@ async function afficheInfosPhotpgraphe() {
 	let chainesParametres = new URLSearchParams(document.location.search.substring(1)) // permet de récuperer la chaine de parmètres passés dans l'url
 	let idPhotographe = chainesParametres.get("id") // permet de recuperer précisément l'id
 
-    if (photographers === undefined) throw new ExceptionUtilisateur("Données sur les photographes introuvables.")
-	else if (media === undefined) throw new ExceptionUtilisateur("Données sur les medias du photographes introuvables.")
-
-	DonneesPhotographeObj = photographers.find(
+    DonneesPhotographeObj = photographers.find(
 		(photographer) => photographer.id == idPhotographe // c'est ainsi qu'on récupère les infos du photographe souhaité (objet)
 	)
-	if (DonneesPhotographeObj === undefined) throw new ExceptionUtilisateur("Données sur le photographe introuvables.")
     let ObjPhotographe = new Cl_photographe(DonneesPhotographeObj) // instanciation de la class photographe
 
 	document.title = document.title + ' : ' + ObjPhotographe.getNomPhotoGraphe // mise à jour du title de la page en ajoutant le nom du photographe
 
 	let mediasPersos = media.filter((media) => media.photographerId == idPhotographe) // c'est ainsi qu'on récupère les médias du photographe souhaité (objet)
 	updateMediasPersos(mediasPersos) // afiche ou met à jour la gallerie
-	console.log(mediasPersos)
-	
-	// le tableau d'objet va etre trié en fonction de ce qui est retenu dans la selectbox :
-	document.addEventListener("change", function (event) {
-		$conteneurGalleryPhtographe.innerHTML = ""
-		let mediaGalleryTriee = ''
-		console.log('event.target : ' + event.target.value)
-		switch ( event.target.value) { // suivant l'option retenue dans la selectbox
-			// on va utiliser sort (cf https://developer.mozilla.org/fr/docs/orphaned/Web/JavaScript/Reference/Global_Objects/Array/sort, on aurait pu utiliser les fonctions fléchées
-			case "date":
-				console.log(`trie par date`)
-				mediaGalleryTriee =  mediasPersos.sort(function(a, b) {
-					let aDate = new Date(a.date);
-					let bDate = new Date(b.date);
-					//console.log(`adate : ${aDate} bdate : ${bDate}`)
-					return  bDate - aDate})
-				break
-			case "titre":
-				//console.log('trie par titre')
-				mediaGalleryTriee = mediasPersos.sort((a, b) => a.title.localeCompare(b.title))
-				break
-			default: // popularité par défaut
-				//console.log('trie par popularité')
-				mediaGalleryTriee =  mediasPersos.sort(function(a, b) {return b.likes - a.likes})
-				break
-		} 
-
-		updateMediasPersos(mediaGalleryTriee)// afiche ou met à jour la gallerie
-
-	})
 
 	let photographeInfosGen = document.querySelector(".detail-photographe__info")
 	let photographeInfosAutres = document.querySelector(".detail-photographe__infos-autres")
@@ -76,27 +56,25 @@ function updateMediasPersos(gallery) {
 // en fonction du media passé en param,détermine si il s'agit d'une image ou d'un video en fonction de la présence de ces champs dans le json
 //retourne une string avec une portion de code html
 function  retourneMediaHtml(mediaParam) {
-	let dateFdate = new Date(mediaParam.date)
     let image = mediaParam.image
     let video = mediaParam.video
     let description = mediaParam.description
     let title = mediaParam.title
     let photographerId = mediaParam.photographerId
     let likes = mediaParam.likes
-	let id = mediaParam.id
 
     let codeHtml = ''
     if (image != undefined) codeHtml = `<img class="detail-photographe__gallery__media focus__element-secondary" tabindex="5" src="./medias/${photographerId}/${image}" alt="${description}" />`
-    else if (video !== undefined)  codeHtml = `<video controls class="detail-photographe__gallery__media focus__element-secondary" tabindex="5">
+    else if (video != undefined)  codeHtml = `<video controls class="detail-photographe__gallery__media focus__element-secondary" tabindex="5">
                                                         <source src="./medias/${photographerId}/${video}"/>
                                             </video>`
-    else throw new ExceptionUtilisateur("Média non pris en charge. (id : " + id + ")")
+    else throw `Média non pris en charge`
 
     return `
     <figure class="detail-photographe__gallery__card" aria-label="${title} closeup view">
         ${codeHtml}
         <footer class="detail-photographe__gallery__media__footer">
-            <figcaption class="detail-photographe__gallery__media__footer__figcaption">${title} ||| ${dateFdate}</figcaption>
+            <figcaption class="detail-photographe__gallery__media__footer__figcaption">${title}</figcaption>
             <div class="detail-photographe__gallery__media__footer__like-section">
                 <p class="detail-photographe__gallery__media__footer__like-section-counter">${likes}</p>
                 <button class="detail-photographe__gallery__media__footer__like-section-button focus__element-secondary" title="J'aime" tabindex="5" aria-label="likes"><i class="far fa-heart" aria-hidden="true"></i></button>

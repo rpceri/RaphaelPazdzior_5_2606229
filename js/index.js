@@ -31,7 +31,8 @@ then retourne un tableau d'objet issu du json
     // fonction permettant de gérer les filtres et d'afficher chaque photogrpahe 
     const mainFuntion = async () => {
         let { photographers } = await getDataOfJson() // retourne automatiquement un tab d'objet de ce qu'il y a dans le json au niveau de photographers, si on avait voulu media, il aurait suffit de mettre media
-        //console.log(photographers) 
+        //console.log(photographers)
+        if (photographers === undefined) throw new ExceptionUtilisateur("Données sur les photographes introuvables.")
         displayDataOfList(photographers) // renseigne la partie les-photographes avec les infos contenues dans photographersRecup
 
         let tags = document.querySelector(".header__filters__navigation").querySelectorAll("li")
