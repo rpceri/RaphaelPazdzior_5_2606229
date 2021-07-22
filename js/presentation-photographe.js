@@ -26,9 +26,9 @@ async function afficheInfosPhotpgraphe() {
 
 	document.title = document.title + ' : ' + ObjPhotographe.getNomPhotoGraphe // mise à jour du title de la page en ajoutant le nom du photographe
 
-	let mediasPersos = media.filter((media) => media.photographerId == idPhotographe) // c'est ainsi qu'on récupère les médias du photographe souhaité (objet)
+	let mediasPersos = media.filter((media) => media.photographerId == idPhotographe) // c'est ainsi qu'on récupère les médias du photographe souhaité (tableau d'objet)
 	updateMediasPersos(mediasPersos) // afiche ou met à jour la gallerie
-	console.log(mediasPersos)
+	//console.log(mediasPersos)
 	
 	// le tableau d'objet va etre trié en fonction de ce qui est retenu dans la selectbox :
 	document.addEventListener("change", function (event) {
@@ -76,7 +76,7 @@ function updateMediasPersos(gallery) {
 // en fonction du media passé en param,détermine si il s'agit d'une image ou d'un video en fonction de la présence de ces champs dans le json
 //retourne une string avec une portion de code html
 function  retourneMediaHtml(mediaParam) {
-	let dateFdate = new Date(mediaParam.date)
+	let dateFdate = new Date(mediaParam.date) // n'est utile que pour débugage
     let image = mediaParam.image
     let video = mediaParam.video
     let description = mediaParam.description
@@ -92,11 +92,12 @@ function  retourneMediaHtml(mediaParam) {
                                             </video>`
     else throw new ExceptionUtilisateur("Média non pris en charge. (id : " + id + ")")
 
+	//console.log({dateFdate}) // permet de vérifier que le trie par date fonctionne bien
     return `
     <figure class="detail-photographe__gallery__card" aria-label="${title} closeup view">
         ${codeHtml}
         <footer class="detail-photographe__gallery__media__footer">
-            <figcaption class="detail-photographe__gallery__media__footer__figcaption">${title} ||| ${dateFdate}</figcaption>
+            <figcaption class="detail-photographe__gallery__media__footer__figcaption">${title}</figcaption>
             <div class="detail-photographe__gallery__media__footer__like-section">
                 <p class="detail-photographe__gallery__media__footer__like-section-counter">${likes}</p>
                 <button class="detail-photographe__gallery__media__footer__like-section-button focus__element-secondary" title="J'aime" tabindex="5" aria-label="likes"><i class="far fa-heart" aria-hidden="true"></i></button>

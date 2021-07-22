@@ -207,8 +207,8 @@ a {
   border: 0.5px solid transparent;
 }
 
-.les-photographes .photographe:focus {
-  background-color: #FAFAFA;
+.les-photographes .photographe a:focus h2 {
+  background-color: #901C1C;
   color: white;
   border: 1px solid red;
 }
