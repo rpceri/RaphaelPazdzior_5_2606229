@@ -43,7 +43,7 @@ class Cl_photographe {
                 <ul class="detail-photographe__info_div__content__taglist">${this.tags.map(tag => `<li class="bouton-tag">#${tag}</li>`).join(" ")}</ul>
             </div>
             <div class="detail-photographe__info_div__contact">
-                <button class="detail-photographe__info_div__contact__button focus__element-secondary" tabindex="3" onclick="AffichePopup()" aria-label="Contacter Me">Contactez-moi</button>
+                <button class="detail-photographe__info_div__contact__button" tabindex="3" id="btContact" aria-label="Contacter Moi">Contactez-moi</button>
             </div>
             <div class="detail-photographe__info_div__photo">
             <img src="./medias/Photographers%20ID%20Photos/${this.portrait}" class="detail-photographe__info_div__photo__img" alt="" aria-label="${this.name}">
@@ -51,15 +51,15 @@ class Cl_photographe {
         </div>`
     }
 
-    // retourne une string contenant unb loc html avec le nombre de like et le tarif d'un photographe pour la page de détail
+    // retourne une string contenant un bloc html avec le nombre de like et le tarif d'un photographe pour la page de détail
     get infosDetailAutrePhotographe() {
         return `<section class="detail-photographe__infos-autres">
-            <aside class="detail-photographe__infos-autres__aside">
-            <p class="detail-photographe__infos-autres__aside__total-likes" aria-label="Nombre de like : ${this.getNbLikeTotalPhotographe}" tabindex="6">${this.getNbLikeTotalPhotographe}</p>
-            <i class="fas fa-heart" aria-hidden="true"></i>
-            </aside>
-            <p class="detail-photographe__infos-autres__price" tabindex="7" aria-label="Tarif journalier : ${this.price} euro">${this.price}€/jour</p>
-        </section>`
+                    <aside class="detail-photographe__infos-autres__aside">
+                        <p class="detail-photographe__infos-autres__aside__total-likes" aria-label="Nombre de like : ${this.getNbLikeTotalPhotographe}">${this.getNbLikeTotalPhotographe}</p>
+                        <i class="fas fa-heart" aria-hidden="true"></i>
+                    </aside>
+                    <p class="detail-photographe__infos-autres__price" aria-label="Tarif journalier : ${this.price} euro">${this.price}€/jour</p>
+                </section>`
     }
 
     // methode retournant le nombre de like : somme des likes de chaque média, utilsée par celle ci dessus et aussi par le js de la page de détail d'un photographe

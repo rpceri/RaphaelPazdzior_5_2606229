@@ -39,9 +39,37 @@
 			</div>
 			<div class="detail-photographe__gallery" id="gallery"></div>
 		</main>
+        <div id="contact__modal" class="modal" role="dialog" aria-modal="true" style="display: block;">
+			<div class="modal-content">
+				<header class="modal-header">
+					<h1 class="modal-header-title">Contactez-moi</h1>
+					<span class="modal-header-close close" tabindex="5" aria-label="Close contact form">×</span>
+				</header>
+				<form class="form">
+					<div class="form-ligne">
+						<label for="firstname" class="form-label">Prénom</label>
+						<input type="text" name="prenom" id="prenom" tabindex="6">
+					</div>
+					<div class="form-ligne">
+						<label for="lastname" class="form-label">Nom</label>
+						<input type="text" name="nom" id="nom" tabindex="6">
+					</div>
+					<div class="form-ligne">
+						<label for="email" class="form-label">Email</label>
+						<input type="email" name="mail" id="mail" tabindex="6">
+					</div>
+					<div class="form-ligne">
+						<label for="message" class="form-label">Votre message</label>
+						<textarea name="message" id="message" tabindex="6"></textarea>
+					</div>
+				</form>
+				<footer class="form-submit">
+					<button type="submit" id="form-button" class="form-button" tabindex="6">Envoyer</button>
+				</footer>
+			</div>
+		</div>
 
-<br><br>
-        <footer class="detail-photographe__infos-autres"></footer>
+        <footer id="footer-infos-autres"></footer>
         <script src="js/commun.js"></script>
 		<script src="js/presentation-photographe.js"></script>
 		<script src="js/cl_photographe.js"></script>

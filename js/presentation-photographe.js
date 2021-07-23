@@ -1,7 +1,7 @@
 
 
 const $conteneurGalleryPhtographe = document.querySelector(".detail-photographe__gallery")
-var DonneesPhotographeObj = '' // on déclare l'objet ici ainsi il servira a plusieurs endroits, il sera instancié par afficheInfosPhotpgraphe
+var DonneesPhotographeObj = '' // on déclare l'objet ici ainsi il servira a plusieurs endroits, il sera instancié par afficheInfosPhotopgraphe
 
 const getDataOfJson = async () =>
 await fetch("./json/FishEyeData.json", { mode: "no-cors" })
@@ -10,7 +10,7 @@ await fetch("./json/FishEyeData.json", { mode: "no-cors" })
 
 
 // affiche les informations d'un photographe : fonction asynchrone, on met donc async devant
-async function afficheInfosPhotpgraphe() {
+async function afficheInfosPhotopgraphe() {
 	let {media, photographers} = await getDataOfJson()  // retourne automatiquement 2 tab d'objet de ce qu'il y a dans le json au niveau de media et de photographers
 	let chainesParametres = new URLSearchParams(document.location.search.substring(1)) // permet de récuperer la chaine de parmètres passés dans l'url
 	let idPhotographe = chainesParametres.get("id") // permet de recuperer précisément l'id
@@ -25,6 +25,7 @@ async function afficheInfosPhotpgraphe() {
     let ObjPhotographe = new Cl_photographe(DonneesPhotographeObj) // instanciation de la class photographe
 
 	document.title = document.title + ' : ' + ObjPhotographe.getNomPhotoGraphe // mise à jour du title de la page en ajoutant le nom du photographe
+	document.querySelector(".modal-header-title").innerHTML +=  `<br /> ${ObjPhotographe.getNomPhotoGraphe}` //le titre de la modald e contact doit contenur le nom du photographe aussi
 
 	let mediasPersos = media.filter((media) => media.photographerId == idPhotographe) // c'est ainsi qu'on récupère les médias du photographe souhaité (tableau d'objet)
 	updateMediasPersos(mediasPersos) // afiche ou met à jour la gallerie
@@ -60,12 +61,12 @@ async function afficheInfosPhotpgraphe() {
 	})
 
 	let photographeInfosGen = document.querySelector(".detail-photographe__info")
-	let photographeInfosAutres = document.querySelector(".detail-photographe__infos-autres")
+	let photographeInfosAutres = document.querySelector("#footer-infos-autres")
 	photographeInfosGen.innerHTML += ObjPhotographe.infoDetailPhotographe  // retourne les informations d'un photographe pour la page de détail
 	photographeInfosAutres.innerHTML += ObjPhotographe.infosDetailAutrePhotographe  // retourne le nombre de like et le tarif d'un photographe pour la page de détail
 }
 
-//affiche ou met à jour la gallerie, appelé par afficheInfosPhotpgraphe à 2 endroit, c'est pour cela qu'on fait une fct à part
+//affiche ou met à jour la gallerie, appelé par afficheInfosPhotopgraphe à 2 endroit, c'est pour cela qu'on fait une fct à part
 function updateMediasPersos(gallery) {
 	gallery.forEach((media) => {
         $conteneurGalleryPhtographe.innerHTML += retourneMediaHtml(media) //retourne une string avec une portion de code html pertmettant l'affichage du média (image ou vidéo)
@@ -96,9 +97,9 @@ function  retourneMediaHtml(mediaParam) {
 		//tester.onload=function() {alert('Image chargée')}
 		tester.onerror=function() {console.log('ATTENTION : Le media n\'existe pas : ' + tester.src)}
 	
-		codeHtml = `<img class="detail-photographe__gallery__media focus__element-secondary" tabindex="5" src="${emplacementImage}" alt="${description}" />`
+		codeHtml = `<img class="detail-photographe__gallery__media" tabindex="5" src="${emplacementImage}" alt="${description}" />`
 	}
-    else if (video !== undefined)  codeHtml = `<video controls class="detail-photographe__gallery__media focus__element-secondary" tabindex="5">
+    else if (video !== undefined)  codeHtml = `<video controls class="detail-photographe__gallery__media" tabindex="5">
                                                         <source src="./medias/${photographerId}/${video}"/>
                                             </video>`
     else throw new ExceptionUtilisateur("Média non pris en charge. (id : " + id + ")")
@@ -111,7 +112,7 @@ function  retourneMediaHtml(mediaParam) {
             <figcaption class="detail-photographe__gallery__media__footer__figcaption">${title}</figcaption>
             <div class="detail-photographe__gallery__media__footer__like-section">
                 <p class="detail-photographe__gallery__media__footer__like-section-counter">${likes}</p>
-                <button class="detail-photographe__gallery__media__footer__like-section-button focus__element-secondary" title="J'aime" tabindex="5" aria-label="likes"><i class="far fa-heart" aria-hidden="true"></i></button>
+                <button class="detail-photographe__gallery__media__footer__like-section-button" title="J'aime" tabindex="5" aria-label="likes"><i class="far fa-heart" aria-hidden="true"></i></button>
             </div>
         </footer>
     </figure>`
@@ -177,22 +178,73 @@ function majLikeTotal() {
         let tags = document.querySelectorAll(".detail-photographe__info_div__content__taglist > li")
  
         tags.forEach((tag) => { // parcours tout les li de tag-list-interractive (dont header__filters__navigation) pour leur ajouter l'evenement click
-                tag.addEventListener("click", function () {                
-                    window.location = 'index.html?tag=' + tag.textContent.replace(/(\s|\#)+/g, "").toLowerCase()
-                })
-                tag.addEventListener("keypress", function (e) {
-                    if (e.key === "Enter") window.location = 'index.html?tag=' + tag.textContent.replace(/(\s|\#)+/g, "").toLowerCase()
-                })
+			tag.addEventListener("click", function () {
+				window.location = 'index.html?tag=' + tag.textContent.replace(/(\s|\#)+/g, "").toLowerCase()
+			})
+			tag.addEventListener("keypress", function (e) {
+				if (e.key === "Enter") window.location = 'index.html?tag=' + tag.textContent.replace(/(\s|\#)+/g, "").toLowerCase()
+			})
 
         })
 
     }
 
+// 2 fct ci dessous pour la modal "contactez moi"
+    gestionBtContact = (classModal) => {
+		document.querySelector(classModal).style.display = "none";
+        let elemnt = document.querySelector("#btContact")
+		elemnt.addEventListener("click", function () {
+				afficheFormulaireContact(classModal)
+		})
+		elemnt.addEventListener("keypress", function (e) {
+			afficheFormulaireContact(classModal)
+		})
+    }
+
+	afficheFormulaireContact = (classModal) => {
+		let modal = document.querySelector(classModal);
+		modal.style.display = "block"; // affichage de la div comportant la modal
+	
+		document.querySelector(".close").onclick = function () {
+			modal.style.display = "none";
+		};
+		// si l'utilisateur a cliqué sur le div qui a la class modal, c'est qu'il sohaite fermer la popup
+		window.onclick = function (event) {
+			if (event.target == modal) {
+				modal.style.display = "none";
+			}
+		};
+	
+		// gestoin touche échape
+		document.addEventListener('keydown', function(e) {
+			if ( e.key === "Escape") {
+					modal.style.display = "none";
+			}
+		});
+		// gestion bouton soumission
+		if (document.getElementById("form-button")) {
+			document.getElementById("form-button").addEventListener("click", function (event) {
+				event.preventDefault();
+				let prenom = document.getElementById("prenom");
+				let nom = document.getElementById("nom");
+				let mail = document.getElementById("mail");
+				let message = document.getElementById("message");
+				console.log(
+					`Info saisies : ${prenom.value} ${nom.value} ${mail.value} ${message.value}`
+				);
+				modal.style.display = "none";
+			});
+		}
+	}
+
 // fonction principale permettant d'afficher les informations du photographe de gérer les likes et les tags
 const mainFuntion = async () => {
-	await afficheInfosPhotpgraphe() // await permet d'attendre le résdultat (fct asynchrone)
+	await afficheInfosPhotopgraphe() // await permet d'attendre le résultat (fct asynchrone)
+	gestionBtContact(".modal")
     gestionLikeDunMedia() // permet de gérer le clic sur le bouton like (incrémente ou décrémente le compte en foncitons des actions passées)
 	assoEvenementsAuxTagsPageDetail() // fonction permettant d'ajouter les evenements click et keypress aux tags
 }
 
+
 mainFuntion() // fonction principale permettant d'afficher les informations du photographe, de gérer les likes et les tags
+

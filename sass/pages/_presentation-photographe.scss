@@ -79,7 +79,38 @@
                 }
             }
         }
-	}
+    }
+    &__infos-autres {
+		align-items: center;
+		background-color: $colour-secondary-fond;
+        color: $colour-secondary-font-neutre;
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+		bottom: 0;
+		display: flex;
+		font-size: 1.2em;
+        font-weight: bold;
+		//height: 50px;
+		justify-content: space-between;
+		padding: 0.7rem 1rem;
+		position: fixed;
+		right: 3rem;
+		width: 280px;
+		&__aside {
+			align-items: center;
+			display: flex;
+            &__total-likes {
+                padding-right : 10px;
+            }/*
+			&__heart {
+				border: none;
+				cursor: pointer;
+				height: 2rem;
+				text-indent: -6000px;
+				width: 3rem;
+		    }*/
+		}
+    }
 
 	&__gallery { 
 		display: block;
@@ -147,4 +178,73 @@
             
         }
     }
+}
+
+
+
+// styles pour la modal de contact ci dessous
+.modal {
+    background-color: $colour-secondary-font-neutre;
+    background-color: $colour-secondary-font;
+    display: none; 
+    height: 100%;
+    left: 0;
+    top: 0;
+    overflow: auto; /*  scroll  */
+    position: fixed; 
+    width: 100%;
+
+    &-content {
+        background-color: $colour-secondary-fond;
+        margin: 20px auto;
+        padding: 5px 20px 0px 20px;
+        width: 80%;
+        max-width: 400px;
+    }
+
+    &-header {
+        //padding-bottom:15px;
+        display: flex;
+        justify-content: space-between;
+        &-title {
+            font-size: 2.6em;
+            color: $colour-secondary-font-neutre;
+        }
+
+        &-close {
+            color: $colour-primary-font-neutre;
+            font-size: 5em;  
+            &:hover,
+            &:focus {
+                color: #000;
+                text-decoration: none;
+                cursor: pointer;
+            }
+        }
+    }
+}
+.form {
+   &-ligne {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+   } 
+   &-label {
+    font-size: 1.5em;
+   }
+   
+   &-button {
+        display: flex;
+        justify-content: center;
+    
+        height: 35px;
+        width: 170px;
+        background-color:$colour-primary-fond;
+        border-radius: 5px;
+        border:none;
+        color: $colour-primary-font-neutre;
+        font-size: 1.2em;
+        font-weight: bold;
+        padding-top: 0.3em;
+   }
 }

@@ -9,7 +9,8 @@ then retourne un tableau d'objet issu du json
     const getDataOfJson = async () =>
         await fetch("./json/FishEyeData.json", { mode: "no-cors" })
             .then((ressource) => ressource.json())
-            .catch((erreur) => console.log("Erreur lors du fetch du json", erreur))
+            .catch(function(erreur) { console.log("Erreur lors du fetch du json" + erreur.message)
+            })
      
     // renseigne la partie les-photographes avec les infos contenues dans photographersRecup
     const displayDataOfList = async (photographersRecup) => {
@@ -73,7 +74,14 @@ then retourne un tableau d'objet issu du json
         let { photographers } = await getDataOfJson() // retourne automatiquement un tab d'objet de ce qu'il y a dans le json au niveau de photographers, si on avait voulu media, il aurait suffit de mettre media
         //console.log(photographers)
         if (photographers === undefined) throw new ExceptionUtilisateur("Données sur les photographes introuvables.")
-        displayDataOfList(photographers) // renseigne la partie les-photographes avec les infos contenues dans photographersRecup
+        
+        let chainesParametres = new URLSearchParams(document.location.search.substring(1)) // permet de récuperer la chaine de parmètres passés dans l'url
+        let tagParametre = chainesParametres.get("tag") // permet de recuperer précisément tag
+        if(tagParametre !== undefined && tagParametre != null) {
+            let photographeTri = trieParTag(tagParametre.replace(/(\s|\#)+/g, "").toLowerCase(), photographers)
+            displayDataOfList(photographeTri) // renseigne la partie les-photographes avec les infos contenues dans photographersRecup
+        }
+        else displayDataOfList(photographers) // renseigne la partie les-photographes avec les infos contenues dans photographersRecup
         gestionbtRetourHaut() // lance la fonction gérant le bouton permettant le retour vers le haut
         assoEvenementsAuxTags(photographers, 2000) // fonction permettant d'ajouter les evenements click et keypress aux tags, la fonction se rapelle toutes les "tempoRelance"" secondes
     }
