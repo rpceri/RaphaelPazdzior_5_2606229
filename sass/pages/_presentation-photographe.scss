@@ -197,7 +197,7 @@
     &-content {
         background-color: $colour-secondary-fond;
         margin: 20px auto;
-        padding: 5px 20px 0px 20px;
+        padding: 5px 20px;
         width: 80%;
         max-width: 400px;
     }
@@ -248,3 +248,17 @@
         padding-top: 0.3em;
    }
 }
+
+/* pour afficher message d'erreur */
+.error{
+    display: none;
+    font-size: 0.85em;
+    color: $colour-alerte-modal-text;
+    font-weight: bold;
+    padding-top : 1em;
+  }
+  
+  .error-visible{
+    display:block;
+   /* height : 10px;*/
+  }

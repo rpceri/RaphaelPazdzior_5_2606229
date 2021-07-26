@@ -13,6 +13,7 @@ class Cl_photographe {
 
     // méthode retournant les informations particulières d'un photographe, utile dans la page index pour lister tous les photographes du json
     get infosPhotographe() {
+        let idTags='';
         // il est spécifié dans figma que le lien ne doit etre que sur le link h2 + image
         return `<article class="photographe">
                     <a href="presentation-photographe.html?id=${this.id}" aria-label="Présentation de ${this.name}" >
@@ -22,7 +23,7 @@ class Cl_photographe {
                     <p class="photographe__coordonnees">${this.city}, ${this.country}</p>
                     <p class="photographe__tagline">${this.tagline}</p>
                     <p class="photographe__price">${this.price}€/jour</p>
-                    <ul class="photographe__taglist tag-list-interractive">${this.tags.map(tag => `<li class="bouton-tag">#${tag}</li>`).join('')}</ul>
+                    <ul class="photographe__taglist tag-list-interractive" id="tags${this.id}">${this.tags.map(tag => `<li class="bouton-tag">#${tag}</li>`).join('')}</ul>
                 </article>`
     }
 

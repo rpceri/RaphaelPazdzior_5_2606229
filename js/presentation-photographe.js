@@ -1,6 +1,3 @@
-
-
-const $conteneurGalleryPhtographe = document.querySelector(".detail-photographe__gallery")
 var DonneesPhotographeObj = '' // on déclare l'objet ici ainsi il servira a plusieurs endroits, il sera instancié par afficheInfosPhotopgraphe
 
 const getDataOfJson = async () =>
@@ -32,14 +29,13 @@ async function afficheInfosPhotopgraphe() {
 	//console.log(mediasPersos)
 	
 	// le tableau d'objet va etre trié en fonction de ce qui est retenu dans la selectbox :
-	document.addEventListener("change", function (event) {
-		$conteneurGalleryPhtographe.innerHTML = ""
+	document.getElementById("trieGallery").addEventListener("change", function (event) {
 		let mediaGalleryTriee = ''
-		console.log('event.target : ' + event.target.value)
+		console.log('event.target : ' + event.target.value) //retourne date popularite ou titre
 		switch ( event.target.value) { // suivant l'option retenue dans la selectbox
 			// on va utiliser sort (cf https://developer.mozilla.org/fr/docs/orphaned/Web/JavaScript/Reference/Global_Objects/Array/sort, on aurait pu utiliser les fonctions fléchées
 			case "date":
-				console.log(`trie par date`)
+				//console.log(`trie par date`)
 				mediaGalleryTriee =  mediasPersos.sort(function(a, b) {
 					let aDate = new Date(a.date);
 					let bDate = new Date(b.date);
@@ -68,13 +64,15 @@ async function afficheInfosPhotopgraphe() {
 
 //affiche ou met à jour la gallerie, appelé par afficheInfosPhotopgraphe à 2 endroit, c'est pour cela qu'on fait une fct à part
 function updateMediasPersos(gallery) {
+	let conteneurGalleryPhtographe = document.querySelector(".detail-photographe__gallery")
+	conteneurGalleryPhtographe.innerHTML = ""
 	gallery.forEach((media) => {
-        $conteneurGalleryPhtographe.innerHTML += retourneMediaHtml(media) //retourne une string avec une portion de code html pertmettant l'affichage du média (image ou vidéo)
+        conteneurGalleryPhtographe.innerHTML += retourneMediaHtml(media) //retourne une string avec une portion de code html pertmettant l'affichage du média (image ou vidéo)
 	})
 }
 
 
-// en fonction du media passé en param,détermine si il s'agit d'une image ou d'un video en fonction de la présence de ces champs dans le json
+// en fonction du media passé en param, détermine si il s'agit d'une image ou d'un video en fonction de la présence de ces champs dans le json
 //retourne une string avec une portion de code html
 function  retourneMediaHtml(mediaParam) {
 	let dateFdate = new Date(mediaParam.date) // n'est utile que pour débugage
@@ -222,6 +220,7 @@ function majLikeTotal() {
 			}
 		});
 		// gestion bouton soumission
+		
 		if (document.getElementById("form-button")) {
 			document.getElementById("form-button").addEventListener("click", function (event) {
 				event.preventDefault();
@@ -232,7 +231,8 @@ function majLikeTotal() {
 				console.log(
 					`Info saisies : ${prenom.value} ${nom.value} ${mail.value} ${message.value}`
 				);
-				modal.style.display = "none";
+				formValide = validate();
+				if(formValide == 1) modal.style.display = "none";
 			});
 		}
 	}
