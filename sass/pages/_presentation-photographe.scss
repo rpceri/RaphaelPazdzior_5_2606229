@@ -1,7 +1,7 @@
 .detail-photographe {
 	display: flex;
 	flex-direction: column;
-	align-items: center;
+	//align-items: center; non le trie doit etre à gauche
 	//margin-top: 1.5rem;
     padding: 5px 20px 0;
 
@@ -52,7 +52,7 @@
                     border: none;
                     color: $colour-primary-font-neutre;
                     cursor: pointer;
-                    font-size: 1.3em;
+                    font-size: 1.2em;
                     width: auto;
                     padding : 6px 5px;
                     position:relative;
@@ -124,6 +124,28 @@
 			&:focus {
 				border: 1px solid $contour-focus;
 			}
+            &__footer {
+                display: flex;
+                justify-content: space-between;
+                color: $colour-secondary-font-color;
+
+                &__like-section{
+                    display: flex; //flex-direction: row; par defaut
+                    &-counter {
+                        padding: 3px 3px 0 0;
+                    }
+                    &-button {
+                        cursor:pointer;
+                        background: none;
+                        border: none;
+                        color: $colour-secondary-font-color;
+                        font-size: 1.6rem; 
+                        &:focus {
+                            border: none; // par ce que par défaut tout les nput sont entouré lors du focus.. c'est bien, sauf pour cet élément  
+                        }
+                    }
+                }
+            }
 		}
 	}
 
@@ -132,6 +154,27 @@
 		// display: none; sur petit écran
 		display: inline;
 		margin-bottom: 3rem;
+        label {
+            font-weight: bold;
+        }
+        &-menu {
+            cursor: pointer;
+            background-color: $colour-primary-fond;
+            border-radius: 5px;
+            border: none;
+            color: $colour-primary-font-neutre;
+            font-size: 1.1em;
+            padding: 0.5rem 0.4rem;
+            margin: 1.5rem 0 0 0.5rem;
+            /*&:hover { peu d'interet
+                background-color: $colour-secondary-fond;
+                color : $colour-secondary-font-neutre;
+            }
+            &:focus {
+                background-color: $colour-primary-fond;
+                color : $colour-primary-font-neutre;
+            } */
+        }
 	}
 /*	&__infos-autre {
 		display: none;
@@ -184,8 +227,7 @@
 
 // styles pour la modal de contact ci dessous
 .modal {
-    background-color: $colour-secondary-font-neutre;
-    background-color: $colour-secondary-font;
+    //background-color: $background-tres-leger;
     display: none; 
     height: 100%;
     left: 0;

@@ -28,13 +28,13 @@
 
 		<main class="detail-photographe">
             <section class="detail-photographe__info" aria-labelledby="identificationPhotographe"> <!-- labelledby car le h1 n'est pas enfant direct -->
-            </section><!-- la section va etre resiengé en JS en fct de l'id passé en paramètre -->
+            </section><!-- la section va etre renseignée en JS en fct de l'id passé en paramètre -->
 			<div class="detail-photographe__trie">
 				<label for="trieGallery">Trier par</label>
-				<select id="trieGallery" class="detail-photographe__trie-menu focus__trie-allery" aria-label="Order by"	tabindex="4">
-					<option value="popularite" class="detail-photographe__trie-menu-item">Popularité</option>
-					<option value="date" class="detail-photographe__trie-menu-item">Date</option>
-					<option value="titre" class="detail-photographe__trie-menu-item">Titre</option>
+				<select id="trieGallery" class="detail-photographe__trie-menu" tabindex="4">
+					<option class="detail-photographe__trie-menu-item" value="popularite">Popularité</option>
+					<option class="detail-photographe__trie-menu-item" value="date">Date</option>
+					<option class="detail-photographe__trie-menu-item" value="titre">Titre</option>
 				</select>
 			</div>
 			<div class="detail-photographe__gallery" id="gallery"></div>
@@ -77,6 +77,7 @@
         <script src="js/fct_controles_formulaire_contact.js"></script>
 		<script src="js/presentation-photographe.js"></script>
 		<script src="js/cl_photographe.js"></script>
+		<script src="js/lightbox.js"></script>
 		<script src="js/cl_exception.js"></script>
 
 

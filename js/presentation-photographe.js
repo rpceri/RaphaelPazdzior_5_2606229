@@ -2,7 +2,7 @@ var DonneesPhotographeObj = '' // on déclare l'objet ici ainsi il servira a plu
 
 const getDataOfJson = async () =>
 await fetch("./json/FishEyeData.json", { mode: "no-cors" })
-    .then((ressourcelol) => ressourcelol.json())
+    .then((ressourcejson) => ressourcejson.json())
     .catch((erreur) => console.log("Erreur lors du fetch du json", erreur))
 
 
@@ -66,9 +66,14 @@ async function afficheInfosPhotopgraphe() {
 function updateMediasPersos(gallery) {
 	let conteneurGalleryPhtographe = document.querySelector(".detail-photographe__gallery")
 	conteneurGalleryPhtographe.innerHTML = ""
+	let cpt = 0
 	gallery.forEach((media) => {
-        conteneurGalleryPhtographe.innerHTML += retourneMediaHtml(media) //retourne une string avec une portion de code html pertmettant l'affichage du média (image ou vidéo)
+		cpt++ // cpt pour tester debug plus rapidement
+        //if(cpt < 4) 
+		conteneurGalleryPhtographe.innerHTML += retourneMediaHtml(media) //retourne une string avec une portion de code html pertmettant l'affichage du média (image ou vidéo)
 	})
+
+	let ObjLightbox = new Lightbox()
 }
 
 
@@ -95,9 +100,9 @@ function  retourneMediaHtml(mediaParam) {
 		//tester.onload=function() {alert('Image chargée')}
 		tester.onerror=function() {console.log('ATTENTION : Le media n\'existe pas : ' + tester.src)}
 	
-		codeHtml = `<img class="detail-photographe__gallery__media" tabindex="5" src="${emplacementImage}" alt="${description}" />`
+		codeHtml = `<img class="detail-photographe__gallery__media" tabindex="5" src="${emplacementImage}" alt="${description}" title="${title}" />`
 	}
-    else if (video !== undefined)  codeHtml = `<video controls class="detail-photographe__gallery__media" tabindex="5">
+    else if (video !== undefined)  codeHtml = `<video controls class="detail-photographe__gallery__media" tabindex="5"  alt="${description}" title="${title}">
                                                         <source src="./medias/${photographerId}/${video}"/>
                                             </video>`
     else throw new ExceptionUtilisateur("Média non pris en charge. (id : " + id + ")")
@@ -200,16 +205,24 @@ function majLikeTotal() {
     }
 
 	afficheFormulaireContact = (classModal) => {
-		let modal = document.querySelector(classModal);
+		let modal = document.querySelector(classModal)
 		modal.style.display = "block"; // affichage de la div comportant la modal
-	
+		let dt = document.querySelector(".detail-photographe")
+		dt.style.opacity = "10%" // pour que le fond de la page principal soit grisé
+		let fia = document.querySelector("#footer-infos-autres")
+		fia.style.opacity = "10%" // pour que le fond de la page principal soit grisé
+
 		document.querySelector(".close").onclick = function () {
 			modal.style.display = "none";
+			dt.style.opacity = "100%"
+			fia.style.opacity = "100%"
 		};
-		// si l'utilisateur a cliqué sur le div qui a la class modal, c'est qu'il sohaite fermer la popup
+		// si l'utilisateur a cliqué sur le div qui a la class modal, c'est qu'il souhaite fermer la popup
 		window.onclick = function (event) {
 			if (event.target == modal) {
 				modal.style.display = "none";
+				dt.style.opacity = "100%"
+				fia.style.opacity = "100%"
 			}
 		};
 	

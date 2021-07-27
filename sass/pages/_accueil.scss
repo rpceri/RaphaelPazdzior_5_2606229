@@ -8,8 +8,9 @@
     background-color: $colour-primary-fond;
     color: $colour-primary-font-neutre;
     transform: translate(-50%, 0); // pour que le conteneur soit bien centré quand on ne précie pas sa taille, inspi : https://css-tricks.com/quick-css-trick-how-to-center-an-object-exactly-in-the-center/
-    padding: 4px 6px;
-    font-size: 1.1rem;
+    padding: 1px 6px;
+    font-size: 1rem;
+    font-weight: bold;
     border-radius: 5px;
     &:hover {
         background-color: $colour-secondary-fond;

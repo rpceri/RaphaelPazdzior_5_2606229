@@ -1,0 +1,104 @@
+@keyframes animationOuverture {
+	from {opacity: 0;}
+	to {opacity: 1;}
+}
+
+.lightbox {
+	animation: animationOuverture 0.5s;
+	background-color: $background-tres-leger;
+	position: fixed; // !! surtout pas fixed, sinon,si la page est scrollé, c'est NOK
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 1000;
+
+	&__container {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+
+		height: 90%;
+		padding: 10px;
+		//text-align: center;
+		align-items: center;
+		color: $colour-primary-font-color;
+		
+		img,
+		video {
+			max-width: 100vh;  // vh = viewport height) : unité de longueur CSS vh est relative à la hauteur du bloc conteneur initial. vh est égale à 1% de cette dernière.
+			max-height: 100vh;
+		}
+	}
+
+	&__next, &__previous {
+		width: 20px;
+		height: 100%;
+		position: fixed;
+		right: 0;
+		top: 40px; // pour ne pas interferer avec la croix de fermeture
+		background: url(../icons/arrow_r.svg) center center / 100% 100%;
+		margin: 0 15px;
+		border: none;
+		//background-color: red;
+	}
+
+	&__previous {
+		left: 0;
+		transform: rotate(180deg);
+	}
+
+	&__close {
+		position: fixed;
+		top: 20px;
+		right: 20px;
+		width: 40px;
+		height: 20px;
+		background: url(../icons/cross.svg) center center / 100% 100% no-repeat;
+		border: none;
+		//font-weight: bold; inutile nabo, c'est une image
+	}
+
+	& button { // concerne previous, next et bt fermer
+		cursor: pointer;
+		opacity: 1;
+		text-indent: -10000px;  // bidouille pour ne pas voir le libellé
+		transition: opacity 0.3s;
+		&:hover {
+			opacity: 0.5;
+		}
+	}
+	
+	// classe utile pour faire un effet à la fermeture du ligthbox
+	&.fadeOut {
+		-moz-transition: opacity 0.6s ease-in-out;
+		-ms-transition: opacity 0.6s ease-in-out;
+		-o-transition: opacity 0.6s ease-in-out;
+		-webkit-transion: opacity 0.6s ease-in-out;
+		opacity: 0;
+		transition: opacity 0.6s ease-in-out;
+	}
+}
+
+/*
+// Large devices (desktops, 992px and up)
+@media (min-width: $mediumdevices) {
+	.lightbox__container {
+		img,
+		video {
+			height: 450px;
+			width: 800px;
+		}
+	}
+}
+
+@media (min-width: $largedevices) {
+	.lightbox__container {
+		img,
+		video {
+			height: 550px;
+			width: 1000px;
+		}
+	}
+}
+*/

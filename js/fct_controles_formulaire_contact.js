@@ -70,7 +70,7 @@ let lenom = document.getElementById('nom');
 lenom.addEventListener('blur', (event) => {
   CtrlChampTxtStd(lenom, 'nom', 'nom');
 });
-
+// controle prénom
 let leprenom = document.getElementById('prenom');
 leprenom.addEventListener('blur', (event) => {
   CtrlChampTxtStd(leprenom, 'prenom', 'prénom');
