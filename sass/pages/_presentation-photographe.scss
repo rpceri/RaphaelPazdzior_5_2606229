@@ -278,16 +278,21 @@
    &-button {
         display: flex;
         justify-content: center;
-    
-        height: 35px;
-        width: 170px;
+
         background-color:$colour-primary-fond;
         border-radius: 5px;
         border:none;
         color: $colour-primary-font-neutre;
         font-size: 1.2em;
         font-weight: bold;
-        padding-top: 0.3em;
+        padding: 0.2em 1em;
+        width: auto;
+        &:focus {
+            border: 2px solid $colour-secondary-fond;
+        }
+        &:hover {
+            background-color: $colour-primary-font-color
+        }
    }
 }
 

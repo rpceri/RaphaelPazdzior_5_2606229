@@ -6,7 +6,7 @@ class Lightbox {
 	constructor() {
 		let links = Array.from(document.querySelector("#gallery").querySelectorAll('img[src$=".jpg"],source[src$=".mp4"]'))
 		//console.log(links)  // array contenant liste des <img>
-		gallery = links.map((link) => link.getAttribute("src"))
+		this.gallery = links.map((link) => link.getAttribute("src"))
 
 
 		links.forEach((link) => {
@@ -14,23 +14,34 @@ class Lightbox {
 			ob.alt = link.getAttribute("alt")
 			ob.title = link.getAttribute("title")
 			this.objGalleryPhotos[link.getAttribute("src")] = ob
-			//console.log(this.objGalleryPhotos)
+			//console.log(link) // retourne la balise <img intégrale ou <source
 
-			//console.log(link) // retourne la balise <img intégrale
-			// sui l'utilisateur clique sur une photo de la gallery ou appuie sur la touche entrée alors que l'img à le focus
-			link.addEventListener("click", (e) => {
-				e.preventDefault() // On utilise la fonction preventDefault de notre objet event pour empêcher le comportement par défaut de cet élément lors du clic de la souris
-				this.ajoutDivAuDom(e.currentTarget.getAttribute("src"))
-				//console.log('ajoutDivAuDom pour ' + e.currentTarget.getAttribute("src")) // retourne ./medias/82/Fashion_Yellow_Beach.jpg
-			})
-			link.addEventListener("keyup", (e) => {
-				if (e.keyCode === 13) {
-					e.preventDefault()
-					this.ajoutDivAuDom(e.currentTarget.getAttribute("src"))
-				} else {
-					return
-				}
-			})
+			// si c'est une vidéo
+            if(link.getAttribute("src").indexOf(".mp4") != -1) {
+				// si l'utilisateur clique sur une photo de la gallery ou appuie sur la touche entrée alors que l'img à le focus
+				link.parentNode.addEventListener("click", (e, ) => {
+					//e.preventDefault() // On utilise la fonction preventDefault de notre objet event pour empêcher le comportement par défaut de cet élément lors du clic de la souris
+					this.ajoutDivAuDom(link.getAttribute("src")) // peut aaussi utiliser e.currentTarget.getAttribute("src") si .parentNode pasutilisé, mais ca pose problème pour les video : l'écouteur nefonctionne pas sur <source>
+					//console.log('ajoutDivAuDom pour ' + link.getAttribute("src") // retourne ./medias/82/Fashion_Yellow_Beach.jpg
+				})
+				link.parentNode.addEventListener("keyup", (e) => {
+					if (e.keyCode === 13) {
+						this.ajoutDivAuDom(link.getAttribute("src"))
+					} else return
+				})
+			}
+			else { // ca sou ce n'est pas une vidéo
+				// si l'utilisateur clique sur une photo de la gallery ou appuie sur la touche entrée alors que l'img à le focus
+				link.addEventListener("click", (e, ) => {
+					this.ajoutDivAuDom(link.getAttribute("src")) // peut aaussi utiliser e.currentTarget.getAttribute("src") si .parentNode pasutilisé, mais ca pose problème pour les video : l'écouteur nefonctionne pas sur <source>
+					//console.log('ajoutDivAuDom pour ' + link.getAttribute("src") // retourne ./medias/82/Fashion_Yellow_Beach.jpg
+				})
+				link.addEventListener("keyup", (e) => {
+					if (e.keyCode === 13) {
+						this.ajoutDivAuDom(link.getAttribute("src"))
+					} else return
+				})
+			}
 		})
 		// gestion de la naviguation clavier des médias: précédent (fleche gauche), suivant (fleche droite), fermer (échap)
 		this.gestionKeyUp = this.gestionKeyUp.bind(this)
@@ -95,19 +106,19 @@ class Lightbox {
 	// permet de passer au média précédent
 	MediaPrecedent(e) {
 		e.preventDefault()
-		let i = gallery.findIndex((image) => image === this.url)
-		if (i === 0) i = gallery.length
-		this.ajoutMediaAelement(gallery[i - 1])
+		let i = this.gallery.findIndex((image) => image === this.url)
+		if (i === 0) i = this.gallery.length
+		this.ajoutMediaAelement(this.gallery[i - 1])
 	}
 
 	// permet de passer au média suivant
 	MediaSuivant(e) {
 		e.preventDefault()
-		//console.log('gallery  : ' + gallery) // contient la listes des src des photros de la galery
-		let i = gallery.findIndex((image) => image === this.url)
+		//console.log('gallery  : ' + this.gallery) // contient la listes des src des photros de la galery
+		let i = this.gallery.findIndex((image) => image === this.url)
 		//console.log('i  : ' + i)
-		if (i === gallery.length - 1) i = -1
-		this.ajoutMediaAelement(gallery[i + 1])
+		if (i === this.gallery.length - 1) i = -1
+		this.ajoutMediaAelement(this.gallery[i + 1])
 	}
 
 	gestionFermeture(e) {
@@ -116,6 +127,4 @@ class Lightbox {
 			document.body.removeChild(this.newElement)
 		}, 500)
 	}
-
-
 }

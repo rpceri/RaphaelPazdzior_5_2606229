@@ -102,9 +102,9 @@ function  retourneMediaHtml(mediaParam) {
 	
 		codeHtml = `<img class="detail-photographe__gallery__media" tabindex="5" src="${emplacementImage}" alt="${description}" title="${title}" />`
 	}
-    else if (video !== undefined)  codeHtml = `<video controls class="detail-photographe__gallery__media" tabindex="5"  alt="${description}" title="${title}">
+    else if (video !== undefined)  codeHtml = `<video class="detail-photographe__gallery__media" tabindex="5"  alt="${description}" title="${title}">
                                                         <source src="./medias/${photographerId}/${video}"/>
-                                            </video>`
+                                            	</video>` // attribut controls retiré pour permetre de faire un évenment onclic dessus (pour ouverture ligthbox)
     else throw new ExceptionUtilisateur("Média non pris en charge. (id : " + id + ")")
 
 	//console.log({dateFdate}) // permet de vérifier que le trie par date fonctionne bien
@@ -197,7 +197,7 @@ function majLikeTotal() {
 		document.querySelector(classModal).style.display = "none";
         let elemnt = document.querySelector("#btContact")
 		elemnt.addEventListener("click", function () {
-				afficheFormulaireContact(classModal)
+			afficheFormulaireContact(classModal)
 		})
 		elemnt.addEventListener("keypress", function (e) {
 			afficheFormulaireContact(classModal)
@@ -205,6 +205,7 @@ function majLikeTotal() {
     }
 
 	afficheFormulaireContact = (classModal) => {
+
 		let modal = document.querySelector(classModal)
 		modal.style.display = "block"; // affichage de la div comportant la modal
 		let dt = document.querySelector(".detail-photographe")
@@ -212,28 +213,27 @@ function majLikeTotal() {
 		let fia = document.querySelector("#footer-infos-autres")
 		fia.style.opacity = "10%" // pour que le fond de la page principal soit grisé
 
-		document.querySelector(".close").onclick = function () {
+		// va etre utilisé plusieurs fois ci dessous
+		disparitionModal = () => {
 			modal.style.display = "none";
 			dt.style.opacity = "100%"
 			fia.style.opacity = "100%"
+		}
+
+		document.querySelector(".close").onclick = function () {
+			disparitionModal()
 		};
 		// si l'utilisateur a cliqué sur le div qui a la class modal, c'est qu'il souhaite fermer la popup
 		window.onclick = function (event) {
-			if (event.target == modal) {
-				modal.style.display = "none";
-				dt.style.opacity = "100%"
-				fia.style.opacity = "100%"
-			}
+			if (event.target == modal) disparitionModal()
 		};
 	
-		// gestoin touche échape
+		// gestion touche échape
 		document.addEventListener('keydown', function(e) {
-			if ( e.key === "Escape") {
-					modal.style.display = "none";
-			}
+			if ( e.key === "Escape") disparitionModal()
 		});
-		// gestion bouton soumission
-		
+
+		// gestion bouton soumission		
 		if (document.getElementById("form-button")) {
 			document.getElementById("form-button").addEventListener("click", function (event) {
 				event.preventDefault();
@@ -245,7 +245,7 @@ function majLikeTotal() {
 					`Info saisies : ${prenom.value} ${nom.value} ${mail.value} ${message.value}`
 				);
 				formValide = validate();
-				if(formValide == 1) modal.style.display = "none";
+				if(formValide == 1) disparitionModal()
 			});
 		}
 	}
