@@ -1,13 +1,13 @@
 var DonneesPhotographeObj = '' // on déclare l'objet ici ainsi il servira a plusieurs endroits, il sera instancié par afficheInfosPhotopgraphe
 
-const getDataOfJson = async () =>
+getDataOfJson = async () =>
 await fetch("./json/FishEyeData.json", { mode: "no-cors" })
     .then((ressourcejson) => ressourcejson.json())
     .catch((erreur) => console.log("Erreur lors du fetch du json", erreur))
 
 
 // affiche les informations d'un photographe : fonction asynchrone, on met donc async devant
-async function afficheInfosPhotopgraphe() {
+afficheInfosPhotopgraphe = async () => {
 	let {media, photographers} = await getDataOfJson()  // retourne automatiquement 2 tab d'objet de ce qu'il y a dans le json au niveau de media et de photographers
 	let chainesParametres = new URLSearchParams(document.location.search.substring(1)) // permet de récuperer la chaine de parmètres passés dans l'url
 	let idPhotographe = chainesParametres.get("id") // permet de recuperer précisément l'id
@@ -22,7 +22,7 @@ async function afficheInfosPhotopgraphe() {
     let ObjPhotographe = new Cl_photographe(DonneesPhotographeObj) // instanciation de la class photographe
 
 	document.title = document.title + ' : ' + ObjPhotographe.getNomPhotoGraphe // mise à jour du title de la page en ajoutant le nom du photographe
-	document.querySelector(".modal-header-title").innerHTML +=  `<br /> ${ObjPhotographe.getNomPhotoGraphe}` //le titre de la modald e contact doit contenur le nom du photographe aussi
+	document.querySelector(".modal-header-title").innerHTML +=  `<br /> ${ObjPhotographe.getNomPhotoGraphe}` //le titre de la modal de contact doit contenir le nom du photographe aussi
 
 	let mediasPersos = media.filter((media) => media.photographerId == idPhotographe) // c'est ainsi qu'on récupère les médias du photographe souhaité (tableau d'objet)
 	updateMediasPersos(mediasPersos) // afiche ou met à jour la gallerie
@@ -63,7 +63,7 @@ async function afficheInfosPhotopgraphe() {
 }
 
 //affiche ou met à jour la gallerie, appelé par afficheInfosPhotopgraphe à 2 endroit, c'est pour cela qu'on fait une fct à part
-function updateMediasPersos(gallery) {
+updateMediasPersos = (gallery) => {
 	let conteneurGalleryPhtographe = document.querySelector(".detail-photographe__gallery")
 	conteneurGalleryPhtographe.innerHTML = ""
 	let cpt = 0
@@ -79,7 +79,7 @@ function updateMediasPersos(gallery) {
 
 // en fonction du media passé en param, détermine si il s'agit d'une image ou d'un video en fonction de la présence de ces champs dans le json
 //retourne une string avec une portion de code html
-function  retourneMediaHtml(mediaParam) {
+retourneMediaHtml = (mediaParam) => {
 	let dateFdate = new Date(mediaParam.date) // n'est utile que pour débugage
     let image = mediaParam.image
     let video = mediaParam.video
@@ -125,7 +125,7 @@ function  retourneMediaHtml(mediaParam) {
 
 
  // permet de gérer le clic sur le bouton like (incrémente ou décrémente le compte en foncitons des actions passées
-function gestionLikeDunMedia() {
+gestionLikeDunMedia = () => {
     // memorise dans une NodList chaque div de la page ayant la class "detail-photographe__gallery__media__footer__like-section"
 	let nodeListBlocLike = document.querySelectorAll(".detail-photographe__gallery__media__footer__like-section")
     //console.log($nodListBlocLike)
@@ -162,7 +162,7 @@ function gestionLikeDunMedia() {
 }
 
 // met à jour le nombre de like total du photographe en additionnant les likes de toutes les photos (utilise par 2 fois par la méthode ci dessus)
-function majLikeTotal() {
+majLikeTotal = () => {
     let likeCounter = document.querySelector('.detail-photographe__infos-autres__aside__total-likes')
 
     if(likeCounter != null) {
@@ -176,86 +176,86 @@ function majLikeTotal() {
 }
 
 
-    // fonction permettant d'ajouter les evenements click et keypress aux tags de la page de détail seulement
-    assoEvenementsAuxTagsPageDetail = () => {
-        let tags = document.querySelectorAll(".detail-photographe__info_div__content__taglist > li")
- 
-        tags.forEach((tag) => { // parcours tout les li de tag-list-interractive (dont header__filters__navigation) pour leur ajouter l'evenement click
-			tag.addEventListener("click", function () {
-				window.location = 'index.html?tag=' + tag.textContent.replace(/(\s|\#)+/g, "").toLowerCase()
-			})
-			tag.addEventListener("keypress", function (e) {
-				if (e.key === "Enter") window.location = 'index.html?tag=' + tag.textContent.replace(/(\s|\#)+/g, "").toLowerCase()
-			})
+// fonction permettant d'ajouter les evenements click et keypress aux tags de la page de détail seulement
+assoEvenementsAuxTagsPageDetail = () => {
+	let tags = document.querySelectorAll(".detail-photographe__info_div__content__taglist > li")
 
-        })
+	tags.forEach((tag) => { // parcours tout les li de tag-list-interractive (dont header__filters__navigation) pour leur ajouter l'evenement click
+		tag.addEventListener("click", function () {
+			window.location = 'index.html?tag=' + tag.textContent.replace(/(\s|\#)+/g, "").toLowerCase()
+		})
+		tag.addEventListener("keypress", function (e) {
+			if (e.key === "Enter") window.location = 'index.html?tag=' + tag.textContent.replace(/(\s|\#)+/g, "").toLowerCase()
+		})
 
-    }
+	})
+
+}
 
 // 2 fct ci dessous pour la modal "contactez moi"
-    gestionBtContact = (classModal) => {
-		document.querySelector(classModal).style.display = "none"
-        let elemnt = document.querySelector("#btContact")
-		elemnt.addEventListener("click", function () {
-			afficheFormulaireContact(classModal)
-		})
-		elemnt.addEventListener("keypress", function (e) {
-			afficheFormulaireContact(classModal)
-		})
-    }
+gestionBtContact = (classModal) => {
+	document.querySelector(classModal).style.display = "none"
+	let elemnt = document.querySelector("#btContact")
+	elemnt.addEventListener("click", function () {
+		afficheFormulaireContact(classModal)
+	})
+	elemnt.addEventListener("keypress", function (e) {
+		afficheFormulaireContact(classModal)
+	})
+}
 
-	afficheFormulaireContact = (classModal) => {
-		let ObjVerifMail = new Cl_verifMail // instanciation de la class Cl_verifMail permettant de vérifier la saisie de l'utilisateur
-		ObjVerifMail.ajoutEcouteursSurChamps() // ajout écouteur sur blur pour chaque champ du formulaire, afin de vérifier valilidté de la saisie et d'afficher message d'erreur en cas de pb
+afficheFormulaireContact = (classModal) => {
+	let ObjVerifMail = new Cl_verifMail // instanciation de la class Cl_verifMail permettant de vérifier la saisie de l'utilisateur
+	ObjVerifMail.ajoutEcouteursSurChamps() // ajout écouteur sur blur pour chaque champ du formulaire, afin de vérifier valilidté de la saisie et d'afficher message d'erreur en cas de pb
 
 
-		let modal = document.querySelector(classModal)
-		modal.style.display = "block" // affichage de la div comportant la modal
-		let dt = document.querySelector(".detail-photographe")
-		dt.style.opacity = "10%" // pour que le fond de la page principal soit grisé
-		let fia = document.querySelector("#footer-infos-autres")
-		fia.style.opacity = "10%" // pour que le fond de la page principal soit grisé
+	let modal = document.querySelector(classModal)
+	modal.style.display = "block" // affichage de la div comportant la modal
+	let dt = document.querySelector(".detail-photographe")
+	dt.style.opacity = "10%" // pour que le fond de la page principal soit grisé
+	let fia = document.querySelector("#footer-infos-autres")
+	fia.style.opacity = "10%" // pour que le fond de la page principal soit grisé
 
-		// va etre utilisé plusieurs fois ci dessous
-		disparitionModal = () => {
-			modal.style.display = "none"
-			dt.style.opacity = "100%"
-			fia.style.opacity = "100%"
-		}
-
-		document.querySelector(".close").onclick = function () {
-			disparitionModal()
-		};
-		// si l'utilisateur a cliqué sur le div qui a la class modal, c'est qu'il souhaite fermer la popup
-		window.onclick = function (event) {
-			if (event.target == modal) disparitionModal()
-		};
-	
-		// gestion touche échape
-		document.addEventListener('keydown', function(e) {
-			if ( e.key === "Escape") disparitionModal()
-		});
-
-		// gestion bouton soumission		
-		if (document.getElementById("form-button")) {
-			document.getElementById("form-button").addEventListener("click", function (event) {
-				event.preventDefault()
-				let prenom = document.getElementById("prenom")
-				let nom = document.getElementById("nom")
-				let mail = document.getElementById("mail")
-				let message = document.getElementById("message")
-				console.log(
-					`Info saisies : ${prenom.value} ${nom.value} ${mail.value} ${message.value}`
-				);
-
-				formValide = ObjVerifMail.verifValiditeInfosForm() // verifie si tout les champs sont bien renseignés, retoune false en cas de problème, sinon true
-				if(formValide == true) {
-					alert ('Vos informations ont bien été prises en compte, merci')
-					disparitionModal()
-				}
-			});
-		}
+	// va etre utilisé plusieurs fois ci dessous
+	disparitionModal = () => {
+		modal.style.display = "none"
+		dt.style.opacity = "100%"
+		fia.style.opacity = "100%"
 	}
+
+	document.querySelector(".close").onclick = function () {
+		disparitionModal()
+	};
+	// si l'utilisateur a cliqué sur le div qui a la class modal, c'est qu'il souhaite fermer la popup
+	window.onclick = function (event) {
+		if (event.target == modal) disparitionModal()
+	};
+
+	// gestion touche échape
+	document.addEventListener('keydown', function(e) {
+		if ( e.key === "Escape") disparitionModal()
+	});
+
+	// gestion bouton soumission		
+	if (document.getElementById("form-button")) {
+		document.getElementById("form-button").addEventListener("click", function (event) {
+			event.preventDefault()
+			let prenom = document.getElementById("prenom")
+			let nom = document.getElementById("nom")
+			let mail = document.getElementById("mail")
+			let message = document.getElementById("message")
+			console.log(
+				`Info saisies : ${prenom.value} ${nom.value} ${mail.value} ${message.value}`
+			);
+
+			formValide = ObjVerifMail.verifValiditeInfosForm() // verifie si tout les champs sont bien renseignés, retoune false en cas de problème, sinon true
+			if(formValide == true) {
+				alert ('Vos informations ont bien été prises en compte, merci')
+				disparitionModal()
+			}
+		});
+	}
+}
 
 // fonction principale permettant d'afficher les informations du photographe de gérer les likes et les tags
 initPage = async () => {

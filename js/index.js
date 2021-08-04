@@ -6,14 +6,14 @@ await : opérateur await permet d'attendre la résolution d'une promesse (Promis
 nb : CORS =« partage de ressources entre origines multiples
 then retourne un tableau d'objet issu du json
 */
-const getDataOfJson = async () =>
+getDataOfJson = async () =>
     await fetch("./json/FishEyeData.json", { mode: "no-cors" })
         .then((ressource) => ressource.json())
         .catch(function(erreur) { console.log("Erreur lors du fetch du json" + erreur.message)
         })
 
-// renseigne la partie les-photographes avec les infos contenues dans photographersRecup
-const AfficheLesPhotographes = (photographers, letag='') => {
+// renseigne la partie les-photographes avec les infos contenues dans photographers
+AfficheLesPhotographes = (photographers, letag='') => {
     let photographersTri = photographers
     if(letag != '') photographersTri = trieParTag(letag.replace(/(\s|\#)+/g, "").toLowerCase(), photographers) // trie des photographes : retourne seulement les photographes correspondant au tag, trié grace à .filter
 
@@ -24,12 +24,12 @@ const AfficheLesPhotographes = (photographers, letag='') => {
         buffer += ObjPhotographe.infosPhotographe // méthode retournant les informations particulières d'un photographe
     })
     document.querySelector(".les-photographes").innerHTML = buffer
-
+    window.location = "#header" // pour que le scroll soit réinitialisé
     assoEvenementsAuxTags(photographers) // fonction permettant d'ajouter les evenements click et keypress aux tags
 }
 
 // trie des photographes : retourne seulement les photographes correspondant au tag, trié grace à .filter
-const trieParTag = (tagRetenu, photographes) => {
+trieParTag = (tagRetenu, photographes) => {
     if (tagRetenu === "tous") return photographes
     else return photographes.filter((photographeFiltre) => photographeFiltre.tags.includes(tagRetenu)) // tags.includes permet le trie en fct de  : "tags": ["portrait", "events", "travel", "animals"],
 }

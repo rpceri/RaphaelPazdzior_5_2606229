@@ -45,9 +45,9 @@ class Cl_lightbox {
 				})
 			}
 		})
-		// gestion de la naviguation clavier des médias: précédent (fleche gauche), suivant (fleche droite), fermer (échap)
-		this.gestionKeyUp = this.gestionKeyUp.bind(this)
-		document.addEventListener("keyup", this.gestionKeyUp)
+		
+		document.addEventListener("keyup", this.gestionKeyUp.bind(this)) // gestion de la navigation clavier des médias: précédent (fleche gauche), suivant (fleche droite), fermer (échap)
+		window.addEventListener("wheel", this.gestionScrollSouris.bind(this)) // gestion de la navigation par roulette de la souris des médias, l'evenement n'est pris en compte que si la div ayant la class lightbox__container existe (mousewheel)
 	}
 
 	ajoutDivAuDom(srcMedia) {
@@ -73,13 +73,24 @@ class Cl_lightbox {
 	}
 
 /////////////
-	// gestion de la naviguation clavier des médias: précédent (fleche gauche), suivant (fleche droite), fermer (échap)
+	// gestion de la navigation clavier des médias: précédent (fleche gauche), suivant (fleche droite), fermer (échap)
 	gestionKeyUp(e) {
-		if (e.key === "ArrowRight") this.MediaPrecedent(e)
-		else if (e.key === "ArrowLeft") this.MediaSuivant(e)
+		if (e.key === "ArrowLeft") this.MediaPrecedent(e)
+		if (e.key === "ArrowRight") this.MediaSuivant(e)
 		else if (e.key === "Escape") this.gestionFermeture(e)
 	}
-
+	// gestion de la navigation par roulette de la souris des médias, l'evenement n'est pris en compte que si la div ayant la class lightbox__container existe
+	gestionScrollSouris(e) {
+		if(document.querySelector(".lightbox__container") != undefined) {
+			console.log ('scroll')
+        	var scroll = e.deltaY;
+        	var scrollDown = scroll > 0
+        	var scrollUp = scroll < 0;
+         
+        	if (scrollDown) this.MediaSuivant(e)
+        	else if (scrollUp) this.MediaPrecedent(e)
+		}
+	}
 	// permet de passer au média précédent
 	MediaPrecedent(e) {
 		e.preventDefault()

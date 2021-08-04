@@ -47,7 +47,7 @@ class Cl_photographe {
                 <button class="detail-photographe__info_div__contact__button" tabindex="3" id="btContact" aria-label="Contacter Moi">Contactez-moi</button>
             </div>
             <div class="detail-photographe__info_div__photo">
-            <img src="./medias/Photographers%20ID%20Photos/${this.portrait}" class="detail-photographe__info_div__photo__img" alt="" aria-label="${this.name}">
+                <img src="./medias/Photographers%20ID%20Photos/${this.portrait}" class="detail-photographe__info_div__photo__img" alt="" aria-label="${this.name}">
             </div>
         </div>`
     }

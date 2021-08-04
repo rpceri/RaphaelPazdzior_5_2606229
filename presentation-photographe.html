@@ -27,8 +27,8 @@
 		</header>
 
 		<main class="detail-photographe">
-            <section class="detail-photographe__info" aria-labelledby="identificationPhotographe"> <!-- labelledby car le h1 n'est pas enfant direct -->
-            </section><!-- la section va etre renseignée en JS en fct de l'id passé en paramètre -->
+            <div class="detail-photographe__info">
+            </div><!-- le contenu va etre renseignée en JS en fct de l'id passé en paramètre -->
 			<div class="detail-photographe__trie">
 				<label for="trieGallery">Trier par</label>
 				<select id="trieGallery" class="detail-photographe__trie-menu" tabindex="4">
@@ -39,27 +39,27 @@
 			</div>
 			<div class="detail-photographe__gallery" id="gallery"></div>
 		</main>
-        <div class="modal" role="dialog" aria-modal="true"  style="display:hidden">
+        <div class="modal" role="dialog" aria-modal="true" aria-describedby="titreModal" style="display:none"> <!--aria-modal="true" premt d'éviter l'utilisation de aria-hidden)-->
 			<div class="modal-content">
 				<form class="form">
 					<header class="modal-header">
-						<h1 class="modal-header-title">Contactez-moi</h1>
-						<span class="modal-header-close close" tabindex="5" aria-label="Close contact form">×</span>
+						<h1 class="modal-header-title" id="titreModal">Contactez-moi</h1>
+						<span class="modal-header-close close" tabindex="5" role="button" aria-pressed="false" aria-label="Close contact form">×</span>
 					</header>
 
 					<div class="form-ligne">
-						<label for="firstname" class="form-label">Prénom</label>
-						<input type="text" name="prenom" id="prenom" tabindex="6">
+						<label for="prenom" class="form-label">Prénom</label>
+						<input type="text" name="prenom" id="prenom" tabindex="6" aria-required="true">
 						<div id="error-prenom" class="error">&nbsp;</div>
 					</div>
 					<div class="form-ligne">
-						<label for="lastname" class="form-label">Nom</label>
-						<input type="text" name="nom" id="nom" tabindex="6">
+						<label for="nom" class="form-label">Nom</label>
+						<input type="text" name="nom" id="nom" tabindex="6" aria-required="true">
 						<div id="error-nom" class="error">&nbsp;</div>
 					</div>
 					<div class="form-ligne">
-						<label for="email" class="form-label">Email</label>
-						<input type="email" name="mail" id="mail" tabindex="6">
+						<label for="mail" class="form-label">Email</label>
+						<input type="email" name="mail" id="mail" tabindex="6" aria-required="true">
 						<div id="error-mail" class="error">&nbsp;</div>
 					</div>
 					<div class="form-ligne">
