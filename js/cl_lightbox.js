@@ -82,7 +82,7 @@ class Cl_lightbox {
 	// gestion de la navigation par roulette de la souris des médias, l'evenement n'est pris en compte que si la div ayant la class lightbox__container existe
 	gestionScrollSouris(e) {
 		if(document.querySelector(".lightbox__container") != undefined) {
-			console.log ('scroll')
+			//console.log ('scroll')
         	var scroll = e.deltaY;
         	var scrollDown = scroll > 0
         	var scrollUp = scroll < 0;
@@ -93,7 +93,7 @@ class Cl_lightbox {
 	}
 	// permet de passer au média précédent
 	MediaPrecedent(e) {
-		e.preventDefault()
+		//e.preventDefault()
 		let i = this.gallery.findIndex((image) => image === this.url)
 		if (i === 0) i = this.gallery.length
 		this.ajoutMediaAelement(this.gallery[i - 1]) // maj la src et les attributs de lightbox__container en fct de l'img ou de la vidéo à charger depuis url
@@ -101,7 +101,7 @@ class Cl_lightbox {
 
 	// permet de passer au média suivant
 	MediaSuivant(e) {
-		e.preventDefault()
+		//e.preventDefault()
 		//console.log('gallery  : ' + this.gallery) // contient la listes des src des photros de la galery
 		let i = this.gallery.findIndex((image) => image === this.url)
 		//console.log('i  : ' + i)

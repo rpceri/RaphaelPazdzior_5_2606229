@@ -31,7 +31,7 @@ afficheInfosPhotopgraphe = async () => {
 	// le tableau d'objet va etre trié en fonction de ce qui est retenu dans la selectbox :
 	document.getElementById("trieGallery").addEventListener("change", function (event) {
 		let mediaGalleryTriee = ''
-		console.log('event.target : ' + event.target.value) //retourne date popularite ou titre
+		//console.log('event.target : ' + event.target.value) //retourne date popularite ou titre
 		switch ( event.target.value) { // suivant l'option retenue dans la selectbox
 			// on va utiliser sort (cf https://developer.mozilla.org/fr/docs/orphaned/Web/JavaScript/Reference/Global_Objects/Array/sort, on aurait pu utiliser les fonctions fléchées
 			case "date":
