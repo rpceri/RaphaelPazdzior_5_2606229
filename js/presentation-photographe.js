@@ -109,7 +109,7 @@ retourneMediaHtml = (mediaParam) => {
 
 	//console.log({dateFdate}) // permet de vérifier que le trie par date fonctionne bien
     return `
-    <figure class="detail-photographe__gallery__card" aria-label="${title} closeup view">
+    <figure class="detail-photographe__gallery__card" aria-label="${title}">
         ${codeHtml}
         <footer class="detail-photographe__gallery__media__footer">
             <figcaption class="detail-photographe__gallery__media__footer__figcaption">${title}</figcaption>
