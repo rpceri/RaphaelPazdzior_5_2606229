@@ -65,25 +65,25 @@ assoEvenementsAuxTags = (photographers, tempoRelance) => {
 gestionbtRetourHaut= ()=> {
     document.addEventListener('scroll', function(e) {
         let style = 'none';
-        if (document.documentElement.scrollTop != 0) style = 'block'; // ocument.documentElement.scrollTop contient la valeur du scroll => 0 si page pas scrollée
+        if (document.documentElement.scrollTop != 0) style = 'block'; // document.documentElement.scrollTop contient la valeur du scroll => 0 si page pas scrollée
         document.querySelector(".lien-cache").style.display = style
     })
 }
 
 // fonction principale permettant d'afficher chaque photographe , de lancer la fonction gérant le bouton permettant le retour vers le haut et de gérer les filtres des tags
-const mainFuntion = async () => {
+initIndex = async () => {
     let { photographers } = await getDataOfJson() // retourne automatiquement un tab d'objet de ce qu'il y a dans le json au niveau de photographers
     //console.log(photographers)
-    if (photographers === undefined) throw new ExceptionUtilisateur("Données sur les photographes introuvables.")
+    if (photographers === undefined) throw new Cl_ExceptionUtilisateur("Données sur les photographes introuvables.")
     
     let chainesParametres = new URLSearchParams(document.location.search.substring(1)) // récup. la chaine de parmètres passés dans l'url (nécessaire si l'utilisation a cliqué sur le tag d'une paghe de détail)
     let tagParametre = chainesParametres.get("tag") // permet de recuperer précisément tag
     if(tagParametre !== undefined && tagParametre != null) AfficheLesPhotographes(photographers, tagParametre)
     else AfficheLesPhotographes(photographers) // renseigne la partie les-photographes avec les infos contenues dans photographers, cas par défaut
 
-    gestionbtRetourHaut() // lance la fonction gérant le bouton permettant le retour vers le haut
+    gestionbtRetourHaut() // fonction gérant le bouton permettant le retour vers le haut
 }
 
-mainFuntion()
+initIndex()
 
 

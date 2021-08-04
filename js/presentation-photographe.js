@@ -12,13 +12,13 @@ async function afficheInfosPhotopgraphe() {
 	let chainesParametres = new URLSearchParams(document.location.search.substring(1)) // permet de récuperer la chaine de parmètres passés dans l'url
 	let idPhotographe = chainesParametres.get("id") // permet de recuperer précisément l'id
 
-    if (photographers === undefined) throw new ExceptionUtilisateur("Données sur les photographes introuvables.")
-	else if (media === undefined) throw new ExceptionUtilisateur("Données sur les medias du photographes introuvables.")
+    if (photographers === undefined) throw new Cl_ExceptionUtilisateur("Données sur les photographes introuvables.")
+	else if (media === undefined) throw new Cl_ExceptionUtilisateur("Données sur les medias du photographes introuvables.")
 
 	DonneesPhotographeObj = photographers.find(
 		(photographer) => photographer.id == idPhotographe // c'est ainsi qu'on récupère les infos du photographe souhaité (objet)
 	)
-	if (DonneesPhotographeObj === undefined) throw new ExceptionUtilisateur("Données sur le photographe introuvables.")
+	if (DonneesPhotographeObj === undefined) throw new Cl_ExceptionUtilisateur("Données sur le photographe introuvables.")
     let ObjPhotographe = new Cl_photographe(DonneesPhotographeObj) // instanciation de la class photographe
 
 	document.title = document.title + ' : ' + ObjPhotographe.getNomPhotoGraphe // mise à jour du title de la page en ajoutant le nom du photographe
@@ -37,8 +37,8 @@ async function afficheInfosPhotopgraphe() {
 			case "date":
 				//console.log(`trie par date`)
 				mediaGalleryTriee =  mediasPersos.sort(function(a, b) {
-					let aDate = new Date(a.date);
-					let bDate = new Date(b.date);
+					let aDate = new Date(a.date)
+					let bDate = new Date(b.date)
 					//console.log(`adate : ${aDate} bdate : ${bDate}`)
 					return  bDate - aDate})
 				break
@@ -73,7 +73,7 @@ function updateMediasPersos(gallery) {
 		conteneurGalleryPhtographe.innerHTML += retourneMediaHtml(media) //retourne une string avec une portion de code html pertmettant l'affichage du média (image ou vidéo)
 	})
 
-	let ObjLightbox = new Lightbox()
+	let ObjLightbox = new Cl_lightbox()
 }
 
 
@@ -96,7 +96,7 @@ function  retourneMediaHtml(mediaParam) {
 		// portion de code pour tester la présence d'une image (vu pb nommage image pour Tracy Galindo id= 82), sinpi : https://www.developpez.net/forums/d475332/javascript/general-javascript/verifier-image-existe/ :
 		emplacementImage = `./medias/${photographerId}/${image}`
 		var tester=new Image()
-		tester.src=emplacementImage;
+		tester.src=emplacementImage
 		//tester.onload=function() {alert('Image chargée')}
 		tester.onerror=function() {console.log('ATTENTION : Le media n\'existe pas : ' + tester.src)}
 	
@@ -104,8 +104,8 @@ function  retourneMediaHtml(mediaParam) {
 	}
     else if (video !== undefined)  codeHtml = `<video class="detail-photographe__gallery__media" tabindex="5"  alt="${description}" title="${title}">
                                                         <source src="./medias/${photographerId}/${video}"/>
-                                            	</video>` // attribut controls retiré pour permetre de faire un évenment onclic dessus (pour ouverture ligthbox)
-    else throw new ExceptionUtilisateur("Média non pris en charge. (id : " + id + ")")
+                                            	</video>` // attribut controls retiré pour permetre de faire un évenment onclic dessus (pour ouverture lightbox)
+    else throw new Cl_ExceptionUtilisateur("Média non pris en charge. (id : " + id + ")")
 
 	//console.log({dateFdate}) // permet de vérifier que le trie par date fonctionne bien
     return `
@@ -194,7 +194,7 @@ function majLikeTotal() {
 
 // 2 fct ci dessous pour la modal "contactez moi"
     gestionBtContact = (classModal) => {
-		document.querySelector(classModal).style.display = "none";
+		document.querySelector(classModal).style.display = "none"
         let elemnt = document.querySelector("#btContact")
 		elemnt.addEventListener("click", function () {
 			afficheFormulaireContact(classModal)
@@ -205,9 +205,12 @@ function majLikeTotal() {
     }
 
 	afficheFormulaireContact = (classModal) => {
+		let ObjVerifMail = new Cl_verifMail // instanciation de la class Cl_verifMail permettant de vérifier la saisie de l'utilisateur
+		ObjVerifMail.ajoutEcouteursSurChamps() // ajout écouteur sur blur pour chaque champ du formulaire, afin de vérifier valilidté de la saisie et d'afficher message d'erreur en cas de pb
+
 
 		let modal = document.querySelector(classModal)
-		modal.style.display = "block"; // affichage de la div comportant la modal
+		modal.style.display = "block" // affichage de la div comportant la modal
 		let dt = document.querySelector(".detail-photographe")
 		dt.style.opacity = "10%" // pour que le fond de la page principal soit grisé
 		let fia = document.querySelector("#footer-infos-autres")
@@ -215,7 +218,7 @@ function majLikeTotal() {
 
 		// va etre utilisé plusieurs fois ci dessous
 		disparitionModal = () => {
-			modal.style.display = "none";
+			modal.style.display = "none"
 			dt.style.opacity = "100%"
 			fia.style.opacity = "100%"
 		}
@@ -236,22 +239,26 @@ function majLikeTotal() {
 		// gestion bouton soumission		
 		if (document.getElementById("form-button")) {
 			document.getElementById("form-button").addEventListener("click", function (event) {
-				event.preventDefault();
-				let prenom = document.getElementById("prenom");
-				let nom = document.getElementById("nom");
-				let mail = document.getElementById("mail");
-				let message = document.getElementById("message");
+				event.preventDefault()
+				let prenom = document.getElementById("prenom")
+				let nom = document.getElementById("nom")
+				let mail = document.getElementById("mail")
+				let message = document.getElementById("message")
 				console.log(
 					`Info saisies : ${prenom.value} ${nom.value} ${mail.value} ${message.value}`
 				);
-				formValide = validate();
-				if(formValide == 1) disparitionModal()
+
+				formValide = ObjVerifMail.verifValiditeInfosForm() // verifie si tout les champs sont bien renseignés, retoune false en cas de problème, sinon true
+				if(formValide == true) {
+					alert ('Vos informations ont bien été prises en compte, merci')
+					disparitionModal()
+				}
 			});
 		}
 	}
 
 // fonction principale permettant d'afficher les informations du photographe de gérer les likes et les tags
-const mainFuntion = async () => {
+initPage = async () => {
 	await afficheInfosPhotopgraphe() // await permet d'attendre le résultat (fct asynchrone)
 	gestionBtContact(".modal")
     gestionLikeDunMedia() // permet de gérer le clic sur le bouton like (incrémente ou décrémente le compte en foncitons des actions passées)
@@ -259,5 +266,5 @@ const mainFuntion = async () => {
 }
 
 
-mainFuntion() // fonction principale permettant d'afficher les informations du photographe, de gérer les likes et les tags
+initPage() // fonction principale permettant d'afficher les informations du photographe, de gérer les likes et les tags
 
