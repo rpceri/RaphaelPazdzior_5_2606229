@@ -1,13 +1,14 @@
 // class permettant de mettre en oeuvre une lightbox :
-//sur tout les images ou vidéos  presentes sur la page
+//sur tout les images ou vidéos presentes dans le conteneur dont l'id est précisé dans le constructeur (idConteneur)
+// pour que le lightobx fonctionne bien, il faudra que els attribut alt title et de chaque média soit renseigné (src est obligatoire)
 
 class Cl_lightbox {
 	gallery = '' // array qui contiendra la source de chaque media (attribut src) , ex : gallery  : ./medias/243/Travel_Lonesome.jpg,./medias/243/Travel_HillsideColor.jpg...
 	tabGalleryPhotos = [] // tableau qui contiendra un objet par media avec les valeurs alt et title de chaque img
     url = '' // url de l'image courante
 
-	constructor() {
-		let links = Array.from(document.querySelector("#gallery").querySelectorAll('img[src$=".jpg"],img[src$=".jpeg"],img[src$=".png"],source[src$=".mp4"]'))
+	constructor(idConteneur) { // idConteneur = id du conteneur ou se trouvent tous les médias à traiter
+		let links = Array.from(document.querySelector(idConteneur).querySelectorAll('img[src$=".jpg"],img[src$=".jpeg"],img[src$=".png"],source[src$=".mp4"]'))
 		//console.log(links)  // array contenant liste des <img>
 		this.gallery = links.map((link) => link.getAttribute("src"))
 
@@ -21,22 +22,22 @@ class Cl_lightbox {
 
 			// si c'est une vidéo : attention: on note bien l'utilisation de  parentNode, sinon ca ne marche pas
             if(link.getAttribute("src").indexOf(".mp4") != -1) {
-				// si l'utilisateur clique sur une photo de la gallery ou appuie sur la touche entrée alors que l'img à le focus
+				// si l'utilisateur clique sur une vidéo de la gallery ou appuie sur la touche entrée alors que l'img à le focus
 				link.parentNode.addEventListener("click", (e, ) => {
 					//e.preventDefault() // On utilise la fonction preventDefault de notre objet event pour empêcher le comportement par défaut de cet élément lors du clic de la souris
 					this.ajoutDivAuDom(link.getAttribute("src")) // peut aussi utiliser e.currentTarget.getAttribute("src") si .parentNode pas utilisé, mais ca pose problème pour les videos : l'écouteur nef onctionne pas sur <source>
 					//console.log('ajoutDivAuDom pour ' + link.getAttribute("src") // retourne ./medias/82/Fashion_Yellow_Beach.jpg
 				})
 				link.parentNode.addEventListener("keyup", (e) => {
-					if (e.keyCode === 13) {
+					if (e.keyCode === 13) { // ou e.key === "Enter"
 						this.ajoutDivAuDom(link.getAttribute("src"))
 					} else return
 				})
 			}
 			else { // cas ou ce n'est pas une vidéo
-				// si l'utilisateur clique sur une vidéo de la gallery ou appuie sur la touche entrée alors que l'img à le focus
+				// si l'utilisateur clique sur une photo de la gallery ou appuie sur la touche entrée alors que l'img à le focus
 				link.addEventListener("click", (e, ) => {
-					this.ajoutDivAuDom(link.getAttribute("src")) // peut aussi utiliser e.currentTarget.getAttribute("src") si .parentNode pa sutilisé, mais ca pose problème pour les videos : l'écouteur ne fonctionne pas sur <source>
+					this.ajoutDivAuDom(link.getAttribute("src"))
 				})
 				link.addEventListener("keyup", (e) => {
 					if (e.keyCode === 13) {
@@ -45,7 +46,7 @@ class Cl_lightbox {
 				})
 			}
 		})
-		
+
 		document.addEventListener("keyup", this.gestionKeyUp.bind(this)) // gestion de la navigation clavier des médias: précédent (fleche gauche), suivant (fleche droite), fermer (échap)
 		window.addEventListener("wheel", this.gestionScrollSouris.bind(this)) // gestion de la navigation par roulette de la souris des médias, l'evenement n'est pris en compte que si la div ayant la class lightbox__container existe (mousewheel)
 	}
@@ -116,7 +117,7 @@ class Cl_lightbox {
 		}, 500)
 	}
 
-	// dans this.newElement : maj la src et les attributs de lightbox__container en fct de l'img ou de la vidéo à charger depuis url
+	// dans this.newElement : maj la src et les attributs de la balise fille de lightbox__container en fct de l'img ou de la vidéo à charger depuis url
 	ajoutMediaAelement(url) {
 		this.url = url
 		this.container = this.newElement.querySelector(".lightbox__container")

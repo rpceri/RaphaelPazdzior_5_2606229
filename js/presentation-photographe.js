@@ -33,7 +33,7 @@ afficheInfosPhotopgraphe = async () => {
 		let mediaGalleryTriee = ''
 		//console.log('event.target : ' + event.target.value) //retourne date popularite ou titre
 		switch ( event.target.value) { // suivant l'option retenue dans la selectbox
-			// on va utiliser sort (cf https://developer.mozilla.org/fr/docs/orphaned/Web/JavaScript/Reference/Global_Objects/Array/sort, on aurait pu utiliser les fonctions fléchées
+			// on va utiliser sort (cf https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Global_Objects/Array/sort, on aurait pu utiliser les fonctions fléchées
 			case "date":
 				//console.log(`trie par date`)
 				mediaGalleryTriee =  mediasPersos.sort(function(a, b) {
@@ -73,7 +73,7 @@ updateMediasPersos = (gallery) => {
 		conteneurGalleryPhtographe.innerHTML += retourneMediaHtml(media) //retourne une string avec une portion de code html pertmettant l'affichage du média (image ou vidéo)
 	})
 
-	let ObjLightbox = new Cl_lightbox()
+	let ObjLightbox = new Cl_lightbox("#gallery")
 }
 
 
@@ -200,7 +200,7 @@ gestionBtContact = (classModal) => {
 		afficheFormulaireContact(classModal)
 	})
 	elemnt.addEventListener("keypress", function (e) {
-		afficheFormulaireContact(classModal)
+		if (e.key === "Enter") afficheFormulaireContact(classModal)
 	})
 }
 

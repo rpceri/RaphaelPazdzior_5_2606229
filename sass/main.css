@@ -195,10 +195,6 @@ a {
 }
 
 .lightbox.fadeOut {
-  -moz-transition: opacity 0.6s ease-in-out;
-  -ms-transition: opacity 0.6s ease-in-out;
-  -o-transition: opacity 0.6s ease-in-out;
-  -webkit-transion: opacity 0.6s ease-in-out;
   opacity: 0;
   -webkit-transition: opacity 0.6s ease-in-out;
   transition: opacity 0.6s ease-in-out;
